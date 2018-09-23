@@ -1,65 +1,93 @@
 ﻿using GalaSoft.MvvmLight;
 using MvvmLight1.Model;
+using System;
+using System.Collections.Generic;
 
 namespace MvvmLight1.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// See http://www.mvvmlight.net
-    /// </para>
-    /// </summary>
     public class MainViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
 
-        /// <summary>
-        /// The <see cref="WelcomeTitle" /> property's name.
-        /// </summary>
-        public const string WelcomeTitlePropertyName = "WelcomeTitle";
-
+        private string _title = "Fußball-Ergebnisse";
         private string _welcomeTitle = string.Empty;
+        private string _matchDayTitle = string.Empty;
+        private List<SoccerMatch> _soccerMatches = new List<SoccerMatch>();
 
-        /// <summary>
-        /// Gets the WelcomeTitle property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
-        public string WelcomeTitle
+        public string MainWindowTitle
         {
-            get
-            {
-                return _welcomeTitle;
-            }
-            set
-            {
-                Set(ref _welcomeTitle, value);
-            }
+            get { return _title; }
+            set { Set(ref _title, value); }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
+        public string WelcomeTitle
+        {
+            get { return _welcomeTitle; }
+            set { Set(ref _welcomeTitle, value); }
+        }
+
+        public string MatchDayTitle
+        {
+            get { return _matchDayTitle; }
+            set { Set(ref _matchDayTitle, value); }
+        }
+
+        public List<SoccerMatch> SoccerMatches
+        {
+            get { return _soccerMatches; }
+            set { Set(ref _soccerMatches, value); }
+        }
+
         public MainViewModel(IDataService dataService)
         {
             _dataService = dataService;
             _dataService.GetData(
                 (item, error) =>
                 {
-                    if (error != null)
+                    if (!HandleError(error))
                     {
-                        // Report error here
                         return;
                     }
 
                     WelcomeTitle = item.Title;
                 });
+
+            _dataService.GetMatches(
+                (matches, error) =>
+                {
+                    if (!HandleError(error))
+                    {
+                        return;
+                    }
+
+                    SoccerMatches = matches;
+                    MatchDayTitle = DetectMatchDayTitle(matches);
+                });
         }
 
-        ////public override void Cleanup()
-        ////{
-        ////    // Clean up if needed
+        public override void Cleanup()
+        {
+            // Clean up if needed
 
-        ////    base.Cleanup();
-        ////}
+            base.Cleanup();
+        }
+
+        private bool HandleError(Exception error)
+        {
+            if (error == null)
+            {
+                return true;
+            }
+
+            // Handle error here!
+            // Logging etc.
+
+            return false;
+        }
+
+        private string DetectMatchDayTitle(List<SoccerMatch> matches)
+        {
+            return $"{matches[0].LeagueName} - {matches[0].StartDate.ToShortDateString()}";
+        }
     }
 }
