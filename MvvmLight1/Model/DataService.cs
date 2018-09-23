@@ -1,25 +1,21 @@
-﻿using System;
+﻿using MvvmLight1.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace MvvmLight1.Model
 {
     public class DataService : IDataService
     {
+        ISoccerLeagueRepository _repository = null;
+
+        public DataService(ISoccerLeagueRepository repository)
+        {
+            _repository = repository;
+        }
+
         public void GetMatches(Action<List<SoccerMatch>, Exception> callback)
         {
-            var matches = new List<SoccerMatch>
-            {
-                new SoccerMatch
-                {
-                    Id = 1,
-                    LeagueName = "1. Fußball-Bundesliga 2018/2019",
-                    StartDate = new DateTime(2018, 9, 21),
-                    IsMatchFinished = true,
-                    Team1 = new SoccerTeam{ Id = 1, Name = "VfB Stuttgart", ShortName = "Stuttgart" },
-                    Team2 = new SoccerTeam{ Id = 2, Name = "Fortuna Düsseldorf", ShortName = "Düsseldorf" },
-                }
-            };
-
+            var matches = _repository.GetSoccerMatches();
             callback(matches, null);
         }
     }

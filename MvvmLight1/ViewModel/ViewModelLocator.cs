@@ -12,7 +12,9 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using MvvmLight1.Interfaces;
 using MvvmLight1.Model;
+using MvvmLight1.Repositories;
 
 namespace MvvmLight1.ViewModel
 {
@@ -32,10 +34,12 @@ namespace MvvmLight1.ViewModel
             if (ViewModelBase.IsInDesignModeStatic)
             {
                 SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
+                //SimpleIoc.Default.Register<ISoccerLeagueRepository, GermanSoccerLeagueRepository>();
             }
             else
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
+                SimpleIoc.Default.Register<ISoccerLeagueRepository, GermanSoccerLeagueRepository>();
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
