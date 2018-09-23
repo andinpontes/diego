@@ -81,6 +81,7 @@
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Model\SoccerMatch.cs" />
+    <Compile Include="Model\SoccerMatchResult.cs" />
     <Compile Include="Model\SoccerTeam.cs" />
     <Compile Include="Repositories\GermanSoccerLeagueRepository.cs" />
     <Compile Include="Interfaces\ISoccerLeagueRepository.cs" />

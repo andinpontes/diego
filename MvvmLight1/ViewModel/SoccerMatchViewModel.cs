@@ -8,10 +8,9 @@ namespace MvvmLight1.ViewModel
 {
     public class SoccerMatchViewModel
     {
+        public string StartDate { get; set; }
         public string Team1 { get; set; }
         public string Team2 { get; set; }
-
-        public int GoalsOfTeam1 { get; set; }
-        public int GoalsOfTeam2 { get; set; }
+        public string MatchResult { get; set; }
     }
 }

@@ -2,7 +2,9 @@
 using MvvmLight1.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 
 namespace MvvmLight1.ViewModel
 {
@@ -73,16 +75,40 @@ namespace MvvmLight1.ViewModel
         {
             return matches.Select(m => new SoccerMatchViewModel
             {
+                StartDate = FormatStartDate(m.StartDate),
                 Team1 = m.Team1.Name,
                 Team2 = m.Team2.Name,
-                GoalsOfTeam1 = 1, //TODO:
-                GoalsOfTeam2 = 0
+                MatchResult = FormatMatchResult(m),
             }).ToList();
         }
 
         private string DetectMatchDayTitle(List<SoccerMatch> matches)
         {
             return $"{matches[0].LeagueName} - {matches[0].StartDate.ToShortDateString()}";
+        }
+        private string FormatStartDate(DateTime dateTime)
+        {
+            string[] dayNames = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames;
+            string dayOfWeek = dayNames[(int)dateTime.DayOfWeek];
+            string formattedDateTime = dateTime.ToString("dd.MM.yy HH:mm");
+
+            return $"{dayOfWeek} {formattedDateTime}";
+        }
+        private string FormatMatchResult(SoccerMatch match)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (match.FinalResult != null)
+            {
+                sb.AppendFormat("{0} : {1}   ", match.FinalResult.GoalsOfTeam1, match.FinalResult.GoalsOfTeam2);
+            }
+
+            if (match.HalfTimeResult != null)
+            {
+                sb.AppendFormat("({0} : {1})", match.HalfTimeResult.GoalsOfTeam1, match.HalfTimeResult.GoalsOfTeam2);
+            }
+
+            return sb.ToString();
         }
     }
 }
