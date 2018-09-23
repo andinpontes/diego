@@ -11,7 +11,6 @@ namespace MvvmLight1.ViewModel
         private readonly IDataService _dataService;
 
         private string _title = "Fußball-Ergebnisse";
-        //private string _welcomeTitle = string.Empty;
         private string _matchDayTitle = string.Empty;
         private List<SoccerMatchViewModel> _soccerMatches = new List<SoccerMatchViewModel>();
 
@@ -20,12 +19,6 @@ namespace MvvmLight1.ViewModel
             get { return _title; }
             set { Set(ref _title, value); }
         }
-
-        //public string WelcomeTitle
-        //{
-        //    get { return _welcomeTitle; }
-        //    set { Set(ref _welcomeTitle, value); }
-        //}
 
         public string MatchDayTitle
         {
@@ -42,17 +35,7 @@ namespace MvvmLight1.ViewModel
         public MainViewModel(IDataService dataService)
         {
             _dataService = dataService;
-            //_dataService.GetData(
-            //    (item, error) =>
-            //    {
-            //        if (!HandleError(error))
-            //        {
-            //            return;
-            //        }
-
-            //        WelcomeTitle = item.Title;
-            //    });
-
+ 
             _dataService.GetMatches(
                 (matches, error) =>
                 {
