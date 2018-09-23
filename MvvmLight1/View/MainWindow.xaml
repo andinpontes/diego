@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         mc:Ignorable="d ignore"
-        Height="300"
-        Width="451.622"
+        Height="500"
+        Width="900"
         Title="{Binding MainWindowTitle}"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
@@ -19,17 +19,24 @@
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
-        <StackPanel>
-        <TextBlock FontSize="36"
+        <DockPanel>
+            <TextBlock FontSize="20"
                    FontWeight="Bold"
-                   Foreground="Purple"
+                   DockPanel.Dock="Top"
                    Text="{Binding MatchDayTitle}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
-        <TextBlock Text="{Binding Foobar}" Height="50" Background="LightGreen" />
-            <DataGrid x:Name="dataGrid" Height="100" ItemsSource="{Binding SoccerMatches}"/>
-
-        </StackPanel>
+                   TextWrapping="Wrap" >
+                <TextBlock.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0.016"/>
+                        <GradientStop Color="#FFFBFB18" Offset="0.916"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
+            <DataGrid x:Name="dataGrid" 
+                      VerticalAlignment="Stretch" 
+                      ItemsSource="{Binding SoccerMatches}" IsReadOnly="True"/>
+        </DockPanel>
     </Grid>
 </Window>

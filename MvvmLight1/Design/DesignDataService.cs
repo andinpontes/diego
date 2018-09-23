@@ -6,13 +6,13 @@ namespace MvvmLight1.Design
 {
     public class DesignDataService : IDataService
     {
-        public void GetData(Action<DataItem, Exception> callback)
-        {
-            // Use this to create design time data
+        //public void GetData(Action<DataItem, Exception> callback)
+        //{
+        //    // Use this to create design time data
 
-            var item = new DataItem("Welcome to MVVM Light [design]");
-            callback(item, null);
-        }
+        //    var item = new DataItem("Welcome to MVVM Light [design]");
+        //    callback(item, null);
+        //}
 
         public void GetMatches(Action<List<SoccerMatch>, Exception> callback)
         {
@@ -23,7 +23,9 @@ namespace MvvmLight1.Design
                     Id = 1,
                     LeagueName = "1. Beispiel Bundesliga 2018/2019",
                     StartDate = new DateTime(2018, 9, 21),
-                    IsMatchFinished = true
+                    IsMatchFinished = true,
+                    Team1 = new SoccerTeam{ Id = 1, Name = "VfB Stuttgart", ShortName = "Stuttgart" },
+                    Team2 = new SoccerTeam{ Id = 2, Name = "Fortuna Düsseldorf", ShortName = "Düsseldorf" },
                 }
             };
 
