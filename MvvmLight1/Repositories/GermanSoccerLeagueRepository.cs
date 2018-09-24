@@ -6,18 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MvvmLight1.Repositories
 {
-    public class GermanSoccerLeagueRepository : ISoccerLeagueRepository
+    public class GermanSoccerLeagueRepository : ISoccerLeagueRepository, IDisposable
     {
+        private readonly string REQUEST_URL = "https://www.openligadb.de/api/getmatchdata/bl1";
         private HttpClient _httpClient = new HttpClient();
 
         public GermanSoccerLeagueRepository()
         {
             InitializeHttpClient();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public List<SoccerMatch> GetSoccerMatches()
@@ -28,22 +33,19 @@ namespace MvvmLight1.Repositories
 
         private void InitializeHttpClient()
         {
-            _httpClient.BaseAddress = new Uri("https://www.openligadb.de/api/getmatchdata/bl1");
-            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.BaseAddress = new Uri(REQUEST_URL);
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         private IEnumerable<JObject> ReadSoccerMatchData()
         {
             var response = _httpClient.GetAsync("").Result;
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                return response.Content.ReadAsAsync<IEnumerable<JObject>>().Result;
+                throw new HttpRequestException("Failed to read soccer data.");
             }
-            else
-            {
-                return null;
-            }
+
+            return response.Content.ReadAsAsync<IEnumerable<JObject>>().Result;
         }
 
         private IEnumerable<SoccerMatch> Convert(IEnumerable<JObject> jsonMatchObjects)
@@ -97,6 +99,14 @@ namespace MvvmLight1.Repositories
             }
 
             return result;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _httpClient.Dispose();
+            }
         }
     }
 }
