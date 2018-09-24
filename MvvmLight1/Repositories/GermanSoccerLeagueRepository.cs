@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace MvvmLight1.Repositories
 {
@@ -25,9 +26,9 @@ namespace MvvmLight1.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public SoccerMatch[] GetSoccerMatches()
+        public async Task<SoccerMatch[]> GetSoccerMatches()
         {
-            var dataObjects = ReadSoccerMatchData();
+            var dataObjects = await ReadSoccerMatchDataAsync();
             return Convert(dataObjects).ToArray();
         }
 
@@ -37,15 +38,17 @@ namespace MvvmLight1.Repositories
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        private IEnumerable<JObject> ReadSoccerMatchData()
+        private async Task<IEnumerable<JObject>> ReadSoccerMatchDataAsync()
         {
-            var response = _httpClient.GetAsync("").Result;
+            var response = await _httpClient.GetAsync(string.Empty);
             if (!response.IsSuccessStatusCode)
             {
                 throw new HttpRequestException("Failed to read soccer data.");
             }
 
-            return response.Content.ReadAsAsync<IEnumerable<JObject>>().Result;
+            //await Task.Delay(3000);
+
+            return await response.Content.ReadAsAsync<IEnumerable<JObject>>();
         }
 
         private IEnumerable<SoccerMatch> Convert(IEnumerable<JObject> jsonMatchObjects)
