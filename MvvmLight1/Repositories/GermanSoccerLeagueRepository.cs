@@ -13,28 +13,37 @@ namespace MvvmLight1.Repositories
 {
     public class GermanSoccerLeagueRepository : ISoccerLeagueRepository
     {
+        private HttpClient _httpClient = new HttpClient();
+
+        public GermanSoccerLeagueRepository()
+        {
+            InitializeHttpClient();
+        }
+
         public List<SoccerMatch> GetSoccerMatches()
         {
-            var result = new List<SoccerMatch>();
+            var dataObjects = ReadSoccerMatchData();
+            return Convert(dataObjects).ToList();
+        }
 
-            using (HttpClient client = new HttpClient())
+        private void InitializeHttpClient()
+        {
+            _httpClient.BaseAddress = new Uri("https://www.openligadb.de/api/getmatchdata/bl1");
+            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        private IEnumerable<JObject> ReadSoccerMatchData()
+        {
+            var response = _httpClient.GetAsync("").Result;
+            if (response.IsSuccessStatusCode)
             {
-                client.BaseAddress = new Uri("https://www.openligadb.de/api/getmatchdata/bl1");
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var response = client.GetAsync("").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var dataObjects = response.Content.ReadAsAsync<IEnumerable<JObject>>().Result;
-                    result = Convert(dataObjects).ToList();
-                }
-                else
-                {
-                    int foo = 1;
-                }
+                return response.Content.ReadAsAsync<IEnumerable<JObject>>().Result;
             }
-
-            return result;
+            else
+            {
+                return null;
+            }
         }
 
         private IEnumerable<SoccerMatch> Convert(IEnumerable<JObject> jsonMatchObjects)
