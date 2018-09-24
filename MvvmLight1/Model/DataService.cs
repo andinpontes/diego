@@ -13,10 +13,14 @@ namespace MvvmLight1.Model
             _repository = repository;
         }
 
-        public void GetMatches(Action<List<SoccerMatch>, Exception> callback)
+        public void GetMatches(Action<SoccerMatchDay, Exception> callback)
         {
-            var matches = _repository.GetSoccerMatches();
-            callback(matches, null);
+            var result = new SoccerMatchDay
+            {
+                Matches = _repository.GetSoccerMatches().ToArray()
+            };
+
+            callback(result, null);
         }
     }
 }

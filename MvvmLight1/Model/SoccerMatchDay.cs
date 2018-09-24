@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MvvmLight1.Model
 {
-    public interface IDataService
+    public class SoccerMatchDay
     {
-        void GetMatches(Action<SoccerMatchDay, Exception> callback);
+        public SoccerMatch[] Matches { get; set; }
     }
 }

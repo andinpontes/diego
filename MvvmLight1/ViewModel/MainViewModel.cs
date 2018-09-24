@@ -39,15 +39,15 @@ namespace MvvmLight1.ViewModel
             _dataService = dataService;
  
             _dataService.GetMatches(
-                (matches, error) =>
+                (matchDay, error) =>
                 {
                     if (!HandleError(error))
                     {
                         return;
                     }
 
-                    SoccerMatches = Convert(matches);
-                    MatchDayTitle = DetectMatchDayTitle(matches);
+                    SoccerMatches = Convert(matchDay.Matches);
+                    MatchDayTitle = DetectMatchDayTitle(matchDay.Matches);
                 });
         }
 
@@ -82,9 +82,15 @@ namespace MvvmLight1.ViewModel
             }).ToList();
         }
 
-        private string DetectMatchDayTitle(List<SoccerMatch> matches)
+        private string DetectMatchDayTitle(IEnumerable<SoccerMatch> matches)
         {
-            return $"{matches[0].LeagueName} - {matches[0].StartDate.ToShortDateString()}";
+            var firstMatch = matches.FirstOrDefault();
+            if (firstMatch == null)
+            {
+                return string.Empty;
+            }
+
+            return $"{firstMatch.LeagueName} - {firstMatch.StartDate.ToShortDateString()}";
         }
         private string FormatStartDate(DateTime dateTime)
         {
