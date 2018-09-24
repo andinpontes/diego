@@ -38,7 +38,7 @@ namespace MvvmLight1.ViewModel
         {
             _dataService = dataService;
  
-            _dataService.GetMatches(
+            _dataService.GetMatchDay(
                 (matchDay, error) =>
                 {
                     if (!HandleError(error))

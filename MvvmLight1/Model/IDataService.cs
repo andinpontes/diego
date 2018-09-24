@@ -7,6 +7,6 @@ namespace MvvmLight1.Model
 {
     public interface IDataService
     {
-        void GetMatches(Action<SoccerMatchDay, Exception> callback);
+        void GetMatchDay(Action<SoccerMatchDay, Exception> callback);
     }
 }

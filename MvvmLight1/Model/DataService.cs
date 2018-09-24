@@ -13,7 +13,7 @@ namespace MvvmLight1.Model
             _repository = repository;
         }
 
-        public async void GetMatches(Action<SoccerMatchDay, Exception> callback)
+        public async void GetMatchDay(Action<SoccerMatchDay, Exception> callback)
         {
             var result = new SoccerMatchDay();
             Exception error = null;
