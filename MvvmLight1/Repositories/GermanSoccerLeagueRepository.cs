@@ -25,10 +25,10 @@ namespace MvvmLight1.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public List<SoccerMatch> GetSoccerMatches()
+        public SoccerMatch[] GetSoccerMatches()
         {
             var dataObjects = ReadSoccerMatchData();
-            return Convert(dataObjects).ToList();
+            return Convert(dataObjects).ToArray();
         }
 
         private void InitializeHttpClient()

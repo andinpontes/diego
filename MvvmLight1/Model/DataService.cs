@@ -17,7 +17,7 @@ namespace MvvmLight1.Model
         {
             var result = new SoccerMatchDay
             {
-                Matches = _repository.GetSoccerMatches().ToArray()
+                Matches = _repository.GetSoccerMatches()
             };
 
             callback(result, null);

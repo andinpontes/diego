@@ -5,6 +5,6 @@ namespace MvvmLight1.Interfaces
 {
     public interface ISoccerLeagueRepository
     {
-        List<SoccerMatch> GetSoccerMatches();
+        SoccerMatch[] GetSoccerMatches();
     }
 }
