@@ -33,6 +33,12 @@
                     </LinearGradientBrush>
                 </TextBlock.Foreground>
             </TextBlock>
+            <DockPanel 
+                Height="50"
+                DockPanel.Dock="Top">
+                <Button Width="100" IsEnabled="{Binding CanStepBack}">Zurück</Button>
+                <Button Width="100" HorizontalAlignment="Right" IsEnabled="{Binding CanStepForward}">Vor</Button>
+            </DockPanel>
             <DataGrid x:Name="dataGrid" 
                       VerticalAlignment="Stretch" 
                       ItemsSource="{Binding SoccerMatches}"

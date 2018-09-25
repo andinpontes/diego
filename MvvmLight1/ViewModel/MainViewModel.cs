@@ -22,17 +22,28 @@ namespace MvvmLight1.ViewModel
             get { return _title; }
             set { Set(ref _title, value); }
         }
-
         public string MatchDayTitle
         {
             get { return _matchDayTitle; }
             set { Set(ref _matchDayTitle, value); }
         }
-
         public List<SoccerMatchViewModel> SoccerMatches
         {
             get { return _soccerMatches; }
             set { Set(ref _soccerMatches, value); }
+        }
+        public int MatchDayNumber
+        {
+            get { return _matchDayNumber; }
+            set { Set(ref _matchDayNumber, value); }
+        }
+        public bool CanStepForward
+        {
+            get { return MatchDayNumber < 34; }
+        }
+        public bool CanStepBack
+        {
+            get { return MatchDayNumber > 1; }
         }
 
         public MainViewModel(IDataService dataService)
@@ -49,6 +60,7 @@ namespace MvvmLight1.ViewModel
 
                     SoccerMatches = Convert(matchDay.Matches);
                     MatchDayTitle = DetectMatchDayTitle(matchDay);
+                    MatchDayNumber = matchDay.Number;
                 });
         }
 

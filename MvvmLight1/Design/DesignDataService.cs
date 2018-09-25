@@ -10,6 +10,7 @@ namespace MvvmLight1.Design
         {
             var result = new SoccerMatchDay
             {
+                LeagueName = "1. Bundesliga",
                 Name = "1. Spieltag",
                 Matches = new[]
                 {
