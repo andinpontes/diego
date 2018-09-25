@@ -3,4 +3,5 @@
 - Aktuelle Tabelle auf eigener Seite
 - Buttons zum Wechseln des Spieltags
 - Jahreszahl der aktuellen Saison ermitteln und benutzen
-- Farbe in der Zeile je nachdem, ob das Spiel noch läuft (rosa) oder vorbei ist (hellgrün).
+# Farbe in der Zeile je nachdem, ob das Spiel noch läuft (rosa) oder vorbei ist (hellgrün).
+- Eigene Farbe (Hintergrund weiß/ Text grau), wenn das Spiel noch nicht begonnen hat.

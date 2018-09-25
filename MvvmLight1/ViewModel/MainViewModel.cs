@@ -92,6 +92,7 @@ namespace MvvmLight1.ViewModel
                 Team1 = m.Team1.Name,
                 Team2 = m.Team2.Name,
                 MatchResult = FormatMatchResult(m),
+                IsMatchFinished = m.IsMatchFinished,
             }).ToList();
         }
 

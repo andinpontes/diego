@@ -42,10 +42,54 @@
             <DataGrid x:Name="dataGrid" 
                       VerticalAlignment="Stretch" 
                       ItemsSource="{Binding SoccerMatches}"
+                      AutoGenerateColumns="False"
                       IsReadOnly="True"
                       GridLinesVisibility="None"
-                      MinRowHeight="30"
-                      AlternatingRowBackground="LightGoldenrodYellow">
+                      HeadersVisibility="All">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="StartDate">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=StartDate}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Team1">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Team1}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Team2">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Team2}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="MatchResult">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=MatchResult}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                
+                
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsMatchFinished}" Value="true">
+                                <Setter Property="Background" Value="LightGreen"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsMatchFinished}" Value="false">
+                                <Setter Property="Background" Value="LightPink"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
             </DataGrid>
         </DockPanel>
     </Grid>
