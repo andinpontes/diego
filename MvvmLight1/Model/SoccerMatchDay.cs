@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MvvmLight1.Model
+﻿namespace MvvmLight1.Model
 {
     public class SoccerMatchDay
     {
+        public string LeagueName { get; set; }
+        public string Name { get; set; }
+        public int Number { get; set; }
         public SoccerMatch[] Matches { get; set; }
     }
 }

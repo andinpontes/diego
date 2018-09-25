@@ -47,7 +47,7 @@ namespace MvvmLight1.ViewModel
                     }
 
                     SoccerMatches = Convert(matchDay.Matches);
-                    MatchDayTitle = DetectMatchDayTitle(matchDay.Matches);
+                    MatchDayTitle = DetectMatchDayTitle(matchDay);
                 });
         }
 
@@ -82,15 +82,9 @@ namespace MvvmLight1.ViewModel
             }).ToList();
         }
 
-        private string DetectMatchDayTitle(IEnumerable<SoccerMatch> matches)
+        private string DetectMatchDayTitle(SoccerMatchDay matchDay)
         {
-            var firstMatch = matches.FirstOrDefault();
-            if (firstMatch == null)
-            {
-                return string.Empty;
-            }
-
-            return $"{firstMatch.LeagueName} - {firstMatch.StartDate.ToShortDateString()}";
+            return $"{matchDay.LeagueName} - {matchDay.Name}";
         }
         private string FormatStartDate(DateTime dateTime)
         {

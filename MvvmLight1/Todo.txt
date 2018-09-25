@@ -1,0 +1,4 @@
+﻿# Spieltag im Titel
+- Symbole der Fußballmannschaften in der Liste
+- Aktuelle Tabelle auf eigener Seite
+- Buttons zum Wechseln des Spieltags

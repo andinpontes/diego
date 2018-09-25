@@ -12,7 +12,7 @@ namespace MvvmLight1.Repositories
 {
     public class GermanSoccerLeagueRepository : ISoccerLeagueRepository, IDisposable
     {
-        private readonly string REQUEST_URL = "https://www.openligadb.de/api/getmatchdata/bl1";
+        private readonly string REQUEST_URL_FOR_CURRENT_MATCHDAY = "https://www.openligadb.de/api/getmatchdata/bl1";
         private HttpClient _httpClient = new HttpClient();
 
         public GermanSoccerLeagueRepository()
@@ -26,21 +26,27 @@ namespace MvvmLight1.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public async Task<SoccerMatch[]> GetSoccerMatches()
+        public async Task<SoccerMatchDay> GetSoccerMatchDay()
         {
-            var dataObjects = await ReadSoccerMatchDataAsync();
-            return Convert(dataObjects).ToArray();
+            var dataObjects = await ReadCurrentSoccerMatchDataAsync();
+
+            return new SoccerMatchDay
+            {
+                LeagueName = ReadLeagueName(dataObjects),
+                Name = ReadName(dataObjects),
+                Number = ReadNumber(dataObjects),
+                Matches = ReadMatches(dataObjects).ToArray()
+            };
         }
 
         private void InitializeHttpClient()
         {
-            _httpClient.BaseAddress = new Uri(REQUEST_URL);
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        private async Task<IEnumerable<JObject>> ReadSoccerMatchDataAsync()
+        private async Task<IEnumerable<JObject>> ReadCurrentSoccerMatchDataAsync()
         {
-            var response = await _httpClient.GetAsync(string.Empty);
+            var response = await _httpClient.GetAsync(REQUEST_URL_FOR_CURRENT_MATCHDAY);
             if (!response.IsSuccessStatusCode)
             {
                 throw new HttpRequestException("Failed to read soccer data.");
@@ -51,7 +57,40 @@ namespace MvvmLight1.Repositories
             return await response.Content.ReadAsAsync<IEnumerable<JObject>>();
         }
 
-        private IEnumerable<SoccerMatch> Convert(IEnumerable<JObject> jsonMatchObjects)
+        private string ReadLeagueName(IEnumerable<JObject> jsonMatchObjects)
+        {
+            dynamic firstMatch = jsonMatchObjects.FirstOrDefault();
+            if (firstMatch == null)
+            {
+                return "<Not available>";
+            }
+
+            return firstMatch.LeagueName;
+        }
+
+        private string ReadName(IEnumerable<JObject> jsonMatchObjects)
+        {
+            dynamic firstMatch = jsonMatchObjects.FirstOrDefault();
+            if (firstMatch == null)
+            {
+                return "<Not available>";
+            }
+
+            return firstMatch.Group.GroupName;
+        }
+
+        private int ReadNumber(IEnumerable<JObject> jsonMatchObjects)
+        {
+            dynamic firstMatch = jsonMatchObjects.FirstOrDefault();
+            if (firstMatch == null)
+            {
+                return 0;
+            }
+
+            return firstMatch.Group.GroupOrderID;
+        }
+
+        private IEnumerable<SoccerMatch> ReadMatches(IEnumerable<JObject> jsonMatchObjects)
         {
             return jsonMatchObjects.Select(NewSoccerMatchByJson);
         }

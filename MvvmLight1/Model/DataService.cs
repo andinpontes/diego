@@ -20,7 +20,7 @@ namespace MvvmLight1.Model
 
             try
             {
-                result.Matches = await _repository.GetSoccerMatches();
+                result = await _repository.GetSoccerMatchDay();
             }
             catch (Exception ex)
             {
