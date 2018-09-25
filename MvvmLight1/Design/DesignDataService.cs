@@ -6,7 +6,7 @@ namespace MvvmLight1.Design
 {
     public class DesignDataService : IDataService
     {
-        public void GetMatchDay(Action<SoccerMatchDay, Exception> callback)
+        public void GetMatchDay(int number, Action<SoccerMatchDay, Exception> callback)
         {
             var result = new SoccerMatchDay
             {

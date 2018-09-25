@@ -13,6 +13,8 @@ namespace MvvmLight1.Repositories
     public class GermanSoccerLeagueRepository : ISoccerLeagueRepository, IDisposable
     {
         private readonly string REQUEST_URL_FOR_CURRENT_MATCHDAY = "https://www.openligadb.de/api/getmatchdata/bl1";
+        private readonly string REQUEST_URL_FOR_MATCHDAY_BY_NUMBER = "https://www.openligadb.de/api/getmatchdata/bl1/{0}/{1}";
+
         private HttpClient _httpClient = new HttpClient();
 
         public GermanSoccerLeagueRepository()
@@ -26,9 +28,14 @@ namespace MvvmLight1.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public async Task<SoccerMatchDay> GetSoccerMatchDay()
+        public async Task<SoccerMatchDay> GetSoccerMatchDay(int number)
         {
-            var dataObjects = await ReadCurrentSoccerMatchDataAsync();
+            if (number < 0 || number > 34)
+            {
+                throw new ArgumentOutOfRangeException(nameof(number));
+            }
+
+            var dataObjects = await ReadSoccerMatchDataAsync(number);
 
             return new SoccerMatchDay
             {
@@ -44,9 +51,11 @@ namespace MvvmLight1.Repositories
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        private async Task<IEnumerable<JObject>> ReadCurrentSoccerMatchDataAsync()
+        private async Task<IEnumerable<JObject>> ReadSoccerMatchDataAsync(int number)
         {
-            var response = await _httpClient.GetAsync(REQUEST_URL_FOR_CURRENT_MATCHDAY);
+            var url = GetUrlByMatchDayNumber(number);
+
+            var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
                 throw new HttpRequestException("Failed to read soccer data.");
@@ -55,6 +64,23 @@ namespace MvvmLight1.Repositories
             //await Task.Delay(3000);
 
             return await response.Content.ReadAsAsync<IEnumerable<JObject>>();
+        }
+
+        private string GetUrlByMatchDayNumber(int number)
+        {
+            if (number <= 0)
+            {
+                return REQUEST_URL_FOR_CURRENT_MATCHDAY;
+            }
+
+            int year = GetCurrentSeasonYear();
+            return string.Format(REQUEST_URL_FOR_MATCHDAY_BY_NUMBER, year, number);
+        }
+
+        private int GetCurrentSeasonYear()
+        {
+            //TODO:
+            return 2018;
         }
 
         private string ReadLeagueName(IEnumerable<JObject> jsonMatchObjects)

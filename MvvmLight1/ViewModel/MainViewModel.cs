@@ -14,6 +14,7 @@ namespace MvvmLight1.ViewModel
 
         private string _title = "Fußball-Ergebnisse";
         private string _matchDayTitle = string.Empty;
+        private int _matchDayNumber = 0;
         private List<SoccerMatchViewModel> _soccerMatches = new List<SoccerMatchViewModel>();
 
         public string MainWindowTitle
@@ -38,7 +39,7 @@ namespace MvvmLight1.ViewModel
         {
             _dataService = dataService;
  
-            _dataService.GetMatchDay(
+            _dataService.GetMatchDay(_matchDayNumber,
                 (matchDay, error) =>
                 {
                     if (!HandleError(error))

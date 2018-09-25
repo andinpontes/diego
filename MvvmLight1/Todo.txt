@@ -2,3 +2,5 @@
 - Symbole der Fußballmannschaften in der Liste
 - Aktuelle Tabelle auf eigener Seite
 - Buttons zum Wechseln des Spieltags
+- Jahreszahl der aktuellen Saison ermitteln und benutzen
+- Farbe in der Zeile je nachdem, ob das Spiel noch läuft (rosa) oder vorbei ist (hellgrün).
