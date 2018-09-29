@@ -117,7 +117,7 @@
                 </DockPanel>
             </Grid>
         </TabItem>
-        <TabItem>
+            <TabItem DataContext="{Binding SoccerTable, Source={StaticResource Locator}}">
             <TabItem.Header>
                 <TextBlock FontSize="16"
                    FontWeight="Bold"
@@ -125,7 +125,7 @@
             </TabItem.Header>
                 <DockPanel>
                     <TextBlock Text="Tabelle" DockPanel.Dock="Top"></TextBlock>
-                    <DataGrid></DataGrid>
+                    <DataGrid ItemsSource="{Binding Entries}"></DataGrid>
                 </DockPanel>
         </TabItem>
     </TabControl>

@@ -52,7 +52,7 @@ namespace MvvmLight1.ViewModel
 
         public MainViewModel(IDataService dataService)
         {
-            _dataService = dataService;
+            _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
             UpdateMatchDayByCurrentNumber();
 
             StepBackward = new ActionCommand(OnStepBackward, OnCanStepBackward);

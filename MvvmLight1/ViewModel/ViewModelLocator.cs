@@ -43,11 +43,9 @@ namespace MvvmLight1.ViewModel
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<TableViewModel>();
         }
 
-        /// <summary>
-        /// Gets the Main property.
-        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
@@ -56,6 +54,17 @@ namespace MvvmLight1.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public TableViewModel SoccerTable
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TableViewModel>();
             }
         }
 
