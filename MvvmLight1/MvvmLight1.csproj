@@ -83,6 +83,7 @@
     <Compile Include="Model\SoccerMatch.cs" />
     <Compile Include="Model\SoccerMatchDay.cs" />
     <Compile Include="Model\SoccerMatchResult.cs" />
+    <Compile Include="Model\SoccerTableEntry.cs" />
     <Compile Include="Model\SoccerTeam.cs" />
     <Compile Include="Repositories\GermanSoccerLeagueRepository.cs" />
     <Compile Include="Interfaces\ISoccerLeagueRepository.cs" />
