@@ -36,8 +36,10 @@
             <DockPanel 
                 Height="50"
                 DockPanel.Dock="Top">
-                <Button Width="100" IsEnabled="{Binding CanStepBack}">Zurück</Button>
-                <Button Width="100" HorizontalAlignment="Right" IsEnabled="{Binding CanStepForward}">Vor</Button>
+                <!--<Button Width="100" IsEnabled="{Binding CanStepBackward}" Command="{Binding StepBackward}">Zurück</Button>-->
+                <Button Width="100" Command="{Binding StepBackward}">Zurück</Button>
+                <!--<Button Width="100" HorizontalAlignment="Right" IsEnabled="{Binding CanStepForward}" Command="{Binding StepForward}">Vor</Button>-->
+                <Button Width="100" HorizontalAlignment="Right" Command="{Binding StepForward}">Vor</Button>
             </DockPanel>
             <DataGrid x:Name="dataGrid" 
                       VerticalAlignment="Stretch" 

@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 
 namespace MvvmLight1.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        private const int NumberOfMatchesPerSeason = 34;
+
         private readonly IDataService _dataService;
 
         private string _title = "Fußball-Ergebnisse";
@@ -39,17 +42,27 @@ namespace MvvmLight1.ViewModel
         }
         public bool CanStepForward
         {
-            get { return MatchDayNumber < 34; }
+            get { return MatchDayNumber < NumberOfMatchesPerSeason; }
         }
-        public bool CanStepBack
+        public bool CanStepBackward
         {
             get { return MatchDayNumber > 1; }
         }
 
+        public ICommand StepBackward { get; private set; }
+        public ICommand StepForward { get; private set; }
+
         public MainViewModel(IDataService dataService)
         {
             _dataService = dataService;
- 
+            UpdateMatchDayByCurrentNumber();
+
+            StepBackward = new ActionCommand(OnStepBackward, OnCanStepBackward);
+            StepForward = new ActionCommand(OnStepForward, OnCanStepForward);
+        }
+
+        private void UpdateMatchDayByCurrentNumber()
+        {
             _dataService.GetMatchDay(_matchDayNumber,
                 (matchDay, error) =>
                 {
@@ -62,6 +75,32 @@ namespace MvvmLight1.ViewModel
                     MatchDayTitle = DetectMatchDayTitle(matchDay);
                     MatchDayNumber = matchDay.Number;
                 });
+        }
+
+        private void OnStepBackward(object obj)
+        {
+            if (MatchDayNumber > 1)
+            {
+                MatchDayNumber--;
+                UpdateMatchDayByCurrentNumber();
+            }
+        }
+        private bool OnCanStepBackward(object arg)
+        {
+            return CanStepBackward;
+        }
+
+        private void OnStepForward(object obj)
+        {
+            if (MatchDayNumber < NumberOfMatchesPerSeason)
+            {
+                MatchDayNumber++;
+                UpdateMatchDayByCurrentNumber();
+            }
+        }
+        private bool OnCanStepForward(object arg)
+        {
+            return CanStepForward;
         }
 
         public override void Cleanup()

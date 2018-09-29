@@ -86,6 +86,7 @@
     <Compile Include="Model\SoccerTeam.cs" />
     <Compile Include="Repositories\GermanSoccerLeagueRepository.cs" />
     <Compile Include="Interfaces\ISoccerLeagueRepository.cs" />
+    <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SoccerMatchViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
