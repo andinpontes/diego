@@ -48,7 +48,7 @@
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       GridLinesVisibility="None"
-                      HeadersVisibility="All">
+                      HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="StartDate">
                         <DataGridTemplateColumn.CellTemplate>
@@ -57,11 +57,30 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Teams">
+                    <DataGridTemplateColumn Header="Team1">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=Teams}"
-                                           TextAlignment="Center"></TextBlock>
+                                <TextBlock Text="{Binding Path=Team1}"
+                                           TextAlignment="Right"
+                                           Margin="10,1,1,1"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="-" Width="10" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="-"
+                                           TextAlignment="Center"
+                                           Margin="0,0"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Team2">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Team2}"
+                                           TextAlignment="Left"
+                                           Margin="1,1,10,1"></TextBlock>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

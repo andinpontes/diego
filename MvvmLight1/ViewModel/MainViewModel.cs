@@ -131,6 +131,8 @@ namespace MvvmLight1.ViewModel
                 Team2 = m.Team2.Name,
                 MatchResult = FormatMatchResult(m),
                 MatchState = DetectMatchState(m),
+                IsTeam1Winner = m.FinalResult?.GoalsOfTeam1 > m.FinalResult?.GoalsOfTeam2,
+                IsTeam2Winner = m.FinalResult?.GoalsOfTeam2 > m.FinalResult?.GoalsOfTeam1,
             }).ToList();
         }
 

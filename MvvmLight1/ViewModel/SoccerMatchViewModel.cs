@@ -11,5 +11,7 @@
         }
         public string MatchResult { get; set; }
         public MatchState MatchState { get; set; }
+        public bool IsTeam1Winner { get; set; }
+        public bool IsTeam2Winner { get; set; }
     }
 }

@@ -35,6 +35,15 @@ namespace MvvmLight1.Design
                         Team2 = new SoccerTeam{ Id = 2, Name = "FC Bayern München", ShortName = "Bayern" },
                         FinalResult = new SoccerMatchResult{GoalsOfTeam1 = 10, GoalsOfTeam2 = 0},
                         HalfTimeResult = new SoccerMatchResult{GoalsOfTeam1 = 5, GoalsOfTeam2 = 0},
+                    },
+                    new SoccerMatch
+                    {
+                        Id = 2,
+                        LeagueName = "1. Beispiel Bundesliga 2018/2019",
+                        UtcStartDate = new DateTime(2999, 9, 21),
+                        IsMatchFinished = false,
+                        Team1 = new SoccerTeam{ Id = 1, Name = "SV Werder Bremen", ShortName = "Bremen" },
+                        Team2 = new SoccerTeam{ Id = 2, Name = "Hamburger SV", ShortName = "Hamburg" },
                     }
                 }
             };

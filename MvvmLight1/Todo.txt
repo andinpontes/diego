@@ -1,7 +1,9 @@
 ﻿# Spieltag im Titel
-- Symbole der Fußballmannschaften in der Liste
-- Aktuelle Tabelle auf eigener Seite
-- Buttons zum Wechseln des Spieltags
-- Jahreszahl der aktuellen Saison ermitteln und benutzen
+# Buttons zum Wechseln des Spieltags
 # Farbe in der Zeile je nachdem, ob das Spiel noch läuft (rosa) oder vorbei ist (hellgrün).
-- Eigene Farbe (Hintergrund weiß/ Text grau), wenn das Spiel noch nicht begonnen hat.
+# Eigene Farbe (Hintergrund weiß/ Text grau), wenn das Spiel noch nicht begonnen hat.
+- Den Namen der Siegermannschaft in fett.
+- Jahreszahl der aktuellen Saison ermitteln und benutzen
+- Symbole der Fußballmannschaften in der Liste
+- Aktuelle Tabelle auf eigener Seite / Tabpage
+- Andere Ligen auf anderen Tabpages
