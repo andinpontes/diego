@@ -1,6 +1,5 @@
 ﻿using MvvmLight1.Interfaces;
 using System;
-using System.Collections.Generic;
 
 namespace MvvmLight1.Model
 {

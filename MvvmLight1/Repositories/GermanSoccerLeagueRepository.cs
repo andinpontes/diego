@@ -122,11 +122,13 @@ namespace MvvmLight1.Repositories
         }
         private SoccerMatch NewSoccerMatchByJson(dynamic jsonObject)
         {
+            var dateTime = jsonObject.MatchDateTimeUTC;
+
             return new SoccerMatch
             {
                 Id = jsonObject.MatchID,
                 LeagueName = jsonObject.LeagueName,
-                StartDate = jsonObject.MatchDateTime,
+                UtcStartDate = jsonObject.MatchDateTimeUTC,
                 Team1 = NewTeamByJson(jsonObject.Team1),
                 Team2 = NewTeamByJson(jsonObject.Team2),
                 FinalResult = NewMatchResultByJson(jsonObject.MatchResults, "Endergebnis"),

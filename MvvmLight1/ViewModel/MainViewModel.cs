@@ -15,15 +15,21 @@ namespace MvvmLight1.ViewModel
 
         private readonly IDataService _dataService;
 
-        private string _title = "Fußball-Ergebnisse";
+        private string _mainWindowTitle = "Fußball-Ergebnisse";
+        private string _leagueTitle = string.Empty;
         private string _matchDayTitle = string.Empty;
         private int _matchDayNumber = 0;
         private List<SoccerMatchViewModel> _soccerMatches = new List<SoccerMatchViewModel>();
 
         public string MainWindowTitle
         {
-            get { return _title; }
-            set { Set(ref _title, value); }
+            get { return _mainWindowTitle; }
+            set { Set(ref _mainWindowTitle, value); }
+        }
+        public string LeagueTitle
+        {
+            get { return _leagueTitle; }
+            set { Set(ref _leagueTitle, value); }
         }
         public string MatchDayTitle
         {
@@ -39,14 +45,6 @@ namespace MvvmLight1.ViewModel
         {
             get { return _matchDayNumber; }
             set { Set(ref _matchDayNumber, value); }
-        }
-        public bool CanStepForward
-        {
-            get { return MatchDayNumber < NumberOfMatchesPerSeason; }
-        }
-        public bool CanStepBackward
-        {
-            get { return MatchDayNumber > 1; }
         }
 
         public ICommand StepBackward { get; private set; }
@@ -72,7 +70,8 @@ namespace MvvmLight1.ViewModel
                     }
 
                     SoccerMatches = Convert(matchDay.Matches);
-                    MatchDayTitle = DetectMatchDayTitle(matchDay);
+                    LeagueTitle = matchDay.LeagueName;
+                    MatchDayTitle = matchDay.Name;
                     MatchDayNumber = matchDay.Number;
                 });
         }
@@ -87,7 +86,7 @@ namespace MvvmLight1.ViewModel
         }
         private bool OnCanStepBackward(object arg)
         {
-            return CanStepBackward;
+            return MatchDayNumber > 1;
         }
 
         private void OnStepForward(object obj)
@@ -100,7 +99,7 @@ namespace MvvmLight1.ViewModel
         }
         private bool OnCanStepForward(object arg)
         {
-            return CanStepForward;
+            return MatchDayNumber < NumberOfMatchesPerSeason;
         }
 
         public override void Cleanup()
@@ -127,20 +126,17 @@ namespace MvvmLight1.ViewModel
         {
             return matches.Select(m => new SoccerMatchViewModel
             {
-                StartDate = FormatStartDate(m.StartDate),
+                StartDate = FormatStartDate(m.UtcStartDate),
                 Team1 = m.Team1.Name,
                 Team2 = m.Team2.Name,
                 MatchResult = FormatMatchResult(m),
-                IsMatchFinished = m.IsMatchFinished,
+                MatchState = DetectMatchState(m),
             }).ToList();
         }
 
-        private string DetectMatchDayTitle(SoccerMatchDay matchDay)
+        private string FormatStartDate(DateTime utcDateTime)
         {
-            return $"{matchDay.LeagueName} - {matchDay.Name}";
-        }
-        private string FormatStartDate(DateTime dateTime)
-        {
+            var dateTime = utcDateTime.ToLocalTime();
             string[] dayNames = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames;
             string dayOfWeek = dayNames[(int)dateTime.DayOfWeek];
             string formattedDateTime = dateTime.ToString("dd.MM.yy HH:mm");
@@ -162,6 +158,20 @@ namespace MvvmLight1.ViewModel
             }
 
             return sb.ToString();
+        }
+        private MatchState DetectMatchState(SoccerMatch match)
+        {
+            if (match.IsMatchFinished)
+            {
+                return MatchState.Finished;
+            }
+
+            if (match.UtcStartDate < DateTime.UtcNow)
+            {
+                return MatchState.Started;
+            }
+
+            return MatchState.Pending;
         }
     }
 }
