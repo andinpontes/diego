@@ -123,6 +123,10 @@
                    FontWeight="Bold"
                    Text="Tabelle"/>
             </TabItem.Header>
+                <DockPanel>
+                    <TextBlock Text="Tabelle" DockPanel.Dock="Top"></TextBlock>
+                    <DataGrid></DataGrid>
+                </DockPanel>
         </TabItem>
     </TabControl>
     </DockPanel>
