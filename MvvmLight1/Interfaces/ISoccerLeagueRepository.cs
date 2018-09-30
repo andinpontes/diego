@@ -7,5 +7,6 @@ namespace MvvmLight1.Interfaces
     public interface ISoccerLeagueRepository
     {
         Task<SoccerMatchDay> GetSoccerMatchDay(int number);
+        Task<SoccerTable> GetSoccerTable();
     }
 }

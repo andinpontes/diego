@@ -13,7 +13,8 @@ namespace MvvmLight1.Repositories
     public class GermanSoccerLeagueRepository : ISoccerLeagueRepository, IDisposable
     {
         private readonly string REQUEST_URL_FOR_CURRENT_MATCHDAY = "https://www.openligadb.de/api/getmatchdata/bl1";
-        private readonly string REQUEST_URL_FOR_MATCHDAY_BY_NUMBER = "https://www.openligadb.de/api/getmatchdata/bl1/{0}/{1}";
+        private readonly string REQUEST_URL_FOR_MATCHDAY_BY_YEAR_AND_NUMBER = "https://www.openligadb.de/api/getmatchdata/bl1/{0}/{1}";
+        private readonly string REQUEST_URL_FOR_TABLE_BY_YEAR = "https://www.openligadb.de/api/getbltable/bl1/{0}";
 
         private HttpClient _httpClient = new HttpClient();
 
@@ -45,6 +46,15 @@ namespace MvvmLight1.Repositories
                 Matches = ReadMatches(dataObjects).ToArray()
             };
         }
+        public async Task<SoccerTable> GetSoccerTable()
+        {
+            var dataObjects = await ReadSoccerTableAsync();
+
+            return new SoccerTable
+            {
+                Entries = ReadSoccerTableEntries(dataObjects).ToArray()
+            };
+        }
 
         private void InitializeHttpClient()
         {
@@ -53,7 +63,7 @@ namespace MvvmLight1.Repositories
 
         private async Task<IEnumerable<JObject>> ReadSoccerMatchDataAsync(int number)
         {
-            var url = GetUrlByMatchDayNumber(number);
+            var url = GetMatchDayUrlByNumber(number);
 
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
@@ -65,24 +75,6 @@ namespace MvvmLight1.Repositories
 
             return await response.Content.ReadAsAsync<IEnumerable<JObject>>();
         }
-
-        private string GetUrlByMatchDayNumber(int number)
-        {
-            if (number <= 0)
-            {
-                return REQUEST_URL_FOR_CURRENT_MATCHDAY;
-            }
-
-            int year = GetCurrentSeasonYear();
-            return string.Format(REQUEST_URL_FOR_MATCHDAY_BY_NUMBER, year, number);
-        }
-
-        private int GetCurrentSeasonYear()
-        {
-            //TODO:
-            return 2018;
-        }
-
         private string ReadLeagueName(IEnumerable<JObject> jsonMatchObjects)
         {
             dynamic firstMatch = jsonMatchObjects.FirstOrDefault();
@@ -93,7 +85,6 @@ namespace MvvmLight1.Repositories
 
             return firstMatch.LeagueName;
         }
-
         private string ReadName(IEnumerable<JObject> jsonMatchObjects)
         {
             dynamic firstMatch = jsonMatchObjects.FirstOrDefault();
@@ -104,7 +95,6 @@ namespace MvvmLight1.Repositories
 
             return firstMatch.Group.GroupName;
         }
-
         private int ReadNumber(IEnumerable<JObject> jsonMatchObjects)
         {
             dynamic firstMatch = jsonMatchObjects.FirstOrDefault();
@@ -115,15 +105,12 @@ namespace MvvmLight1.Repositories
 
             return firstMatch.Group.GroupOrderID;
         }
-
         private IEnumerable<SoccerMatch> ReadMatches(IEnumerable<JObject> jsonMatchObjects)
         {
             return jsonMatchObjects.Select(NewSoccerMatchByJson);
         }
         private SoccerMatch NewSoccerMatchByJson(dynamic jsonObject)
         {
-            var dateTime = jsonObject.MatchDateTimeUTC;
-
             return new SoccerMatch
             {
                 Id = jsonObject.MatchID,
@@ -138,14 +125,12 @@ namespace MvvmLight1.Repositories
         }
         private SoccerTeam NewTeamByJson(dynamic jsonObject)
         {
-            string url = jsonObject.TeamIconUrl;
-
             return new SoccerTeam
             {
                 Id = jsonObject.TeamId,
                 Name = jsonObject.TeamName,
                 ShortName = jsonObject.ShortName,
-                IconUrl = new Uri(url)
+                IconUrl = jsonObject.TeamIconUrl
             };
         }
         private SoccerMatchResult NewMatchResultByJson(dynamic jsonArray, string name)
@@ -171,6 +156,64 @@ namespace MvvmLight1.Repositories
             return result;
         }
 
+        private async Task<IEnumerable<JObject>> ReadSoccerTableAsync()
+        {
+            var url = GetTableUrl();
+
+            var response = await _httpClient.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException("Failed to read soccer table.");
+            }
+
+            return await response.Content.ReadAsAsync<IEnumerable<JObject>>();
+        }
+        private IEnumerable<SoccerTableEntry> ReadSoccerTableEntries(IEnumerable<JObject> jsonTableObjects)
+        {
+            return jsonTableObjects.Select(NewSoccerTableEntryByJson);
+        }
+        private SoccerTableEntry NewSoccerTableEntryByJson(dynamic jsonObject)
+        {
+            return new SoccerTableEntry
+            {
+                Team = new SoccerTeam
+                {
+                    Name = jsonObject.TeamName,
+                    Id = jsonObject.TeamInfoId,
+                    ShortName = jsonObject.ShortName,
+                    IconUrl = jsonObject.TeamIconUrl
+                },
+                NumberOfMatches = jsonObject.Matches,
+                NumberOfPoints = jsonObject.Points,
+                NumberOfWonMatches = jsonObject.Won,
+                NumberOfDrawMatches = jsonObject.Draw,
+                NumberOfLostMatches = jsonObject.Lost,
+                NumberOfGoals = jsonObject.Goals,
+                NumberOfOpponentGoals = jsonObject.OpponentGoals
+            };
+        }
+
+        private string GetMatchDayUrlByNumber(int number)
+        {
+            if (number <= 0)
+            {
+                return REQUEST_URL_FOR_CURRENT_MATCHDAY;
+            }
+
+            int year = GetCurrentSeasonYear();
+            return string.Format(REQUEST_URL_FOR_MATCHDAY_BY_YEAR_AND_NUMBER, year, number);
+        }
+        private string GetTableUrl()
+        {
+            int year = GetCurrentSeasonYear();
+            return string.Format(REQUEST_URL_FOR_TABLE_BY_YEAR, year);
+        }
+        private int GetCurrentSeasonYear()
+        {
+            //TODO:
+            return 2018;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -180,63 +223,3 @@ namespace MvvmLight1.Repositories
         }
     }
 }
-
-
-//{
-//   "MatchID":51150,
-//   "MatchDateTime":"2018-09-21T20:30:00",
-//   "TimeZoneID":"W. Europe Standard Time",
-//   "LeagueId":4276,
-//   "LeagueName":"1. Fußball-Bundesliga 2018/2019",
-//   "MatchDateTimeUTC":"2018-09-21T18:30:00Z",
-//   "Group":{
-//      "GroupName":"4. Spieltag",
-//      "GroupOrderID":4,
-//      "GroupID":31778
-//   },
-//   "Team1":{
-//      "TeamId":16,
-//      "TeamName":"VfB Stuttgart",
-//      "ShortName":"Stuttgart",
-//      "TeamIconUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/VfB_Stuttgart_1893_Logo.svg/921px-VfB_Stuttgart_1893_Logo.svg.png",
-//      "TeamGroupName":null
-//   },
-//   "Team2":{
-//      "TeamId":185,
-//      "TeamName":"Fortuna Düsseldorf",
-//      "ShortName":"Düsseldorf",
-//      "TeamIconUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Fortuna_D%C3%BCsseldorf.svg/150px-Fortuna_D%C3%BCsseldorf.svg.png",
-//      "TeamGroupName":null
-//   },
-//   "LastUpdateDateTime":"2018-09-21T22:22:18.96",
-//   "MatchIsFinished":true,
-//   "MatchResults":[
-//      {
-//         "ResultID":83220,
-//         "ResultName":"Endergebnis",
-//         "PointsTeam1":0,
-//         "PointsTeam2":0,
-//         "ResultOrderID":2,
-//         "ResultTypeID":2,
-//         "ResultDescription":"Ergebnis nach Ende der offiziellen Spielzeit"
-//      },
-//      {
-//         "ResultID":83221,
-//         "ResultName":"Halbzeit",
-//         "PointsTeam1":0,
-//         "PointsTeam2":0,
-//         "ResultOrderID":1,
-//         "ResultTypeID":1,
-//         "ResultDescription":"Zwischenstand zur Halbzeit"
-//      }
-//   ],
-//   "Goals":[
-
-//   ],
-//   "Location":{
-//      "LocationID":37,
-//      "LocationCity":"Stuttgart",
-//      "LocationStadium":"Mercedes Benz Arena "
-//   },
-//   "NumberOfViewers":null
-//}

@@ -125,7 +125,9 @@
             </TabItem.Header>
                 <DockPanel>
                     <TextBlock Text="Tabelle" DockPanel.Dock="Top"></TextBlock>
-                    <DataGrid ItemsSource="{Binding Entries}"></DataGrid>
+                    <DataGrid ItemsSource="{Binding Entries}"
+                              GridLinesVisibility="None"
+                              CanUserAddRows="False"></DataGrid>
                 </DockPanel>
         </TabItem>
     </TabControl>
