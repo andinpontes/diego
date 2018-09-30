@@ -1,5 +1,5 @@
-﻿using MvvmLight1.Interfaces;
-using MvvmLight1.Model;
+﻿using Diego.Interfaces;
+using Diego.Model;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace MvvmLight1.Repositories
+namespace Diego.Repositories
 {
     public class GermanSoccerLeagueRepository : ISoccerLeagueRepository, IDisposable
     {

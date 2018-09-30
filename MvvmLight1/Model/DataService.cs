@@ -1,7 +1,7 @@
-﻿using MvvmLight1.Interfaces;
+﻿using Diego.Interfaces;
 using System;
 
-namespace MvvmLight1.Model
+namespace Diego.Model
 {
     public class DataService : IDataService
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvvmLight1.ViewModel
+namespace Diego.ViewModel
 {
     public class SoccerTableEntryViewModel
     {

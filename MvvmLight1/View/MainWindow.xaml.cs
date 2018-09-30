@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using MvvmLight1.ViewModel;
+using Diego.ViewModel;
 
-namespace MvvmLight1.View
+namespace Diego.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -1,4 +1,4 @@
-﻿namespace MvvmLight1.Model
+﻿namespace Diego.Model
 {
     public class SoccerTableEntry
     {

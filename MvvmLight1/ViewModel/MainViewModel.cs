@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using MvvmLight1.Model;
+using Diego.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
-namespace MvvmLight1.ViewModel
+namespace Diego.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {

@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using MvvmLight1.Model;
+﻿using System.Threading.Tasks;
+using Diego.Model;
 
-namespace MvvmLight1.Interfaces
+namespace Diego.Interfaces
 {
     public interface ISoccerLeagueRepository
     {

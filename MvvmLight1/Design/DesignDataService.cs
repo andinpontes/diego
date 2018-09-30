@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using MvvmLight1.Model;
+using Diego.Model;
 
-namespace MvvmLight1.Design
+namespace Diego.Design
 {
     public class DesignDataService : IDataService
     {

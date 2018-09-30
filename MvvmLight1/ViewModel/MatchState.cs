@@ -1,4 +1,4 @@
-﻿namespace MvvmLight1.ViewModel
+﻿namespace Diego.ViewModel
 {
     public enum MatchState
     {

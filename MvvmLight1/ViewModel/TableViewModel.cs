@@ -1,9 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
-using MvvmLight1.Model;
+using Diego.Model;
 using System;
 using System.Collections.Generic;
 
-namespace MvvmLight1.ViewModel
+namespace Diego.ViewModel
 {
     public class TableViewModel : ViewModelBase
     {
