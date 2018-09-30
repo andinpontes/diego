@@ -1,7 +1,7 @@
 ﻿/*
   In App.xaml:
   <Application.Resources>
-      <vm:ViewModelLocatorTemplate xmlns:vm="clr-namespace:MvvmLight1.ViewModel"
+      <vm:ViewModelLocatorTemplate xmlns:vm="clr-namespace:Diego.ViewModel"
                                    x:Key="Locator" />
   </Application.Resources>
   
