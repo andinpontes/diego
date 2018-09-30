@@ -13,7 +13,7 @@ namespace Diego.ViewModel
             _executeHandler = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecuteHandler = canExecute;
         }
-
+    
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
