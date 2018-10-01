@@ -2,9 +2,11 @@
 # Buttons zum Wechseln des Spieltags
 # Farbe in der Zeile je nachdem, ob das Spiel noch läuft (rosa) oder vorbei ist (hellgrün).
 # Eigene Farbe (Hintergrund weiß/ Text grau), wenn das Spiel noch nicht begonnen hat.
-- Auf GitHub hosten
+# Auf GitHub hosten
 - Aktuelle Tabelle auf eigener Seite / Tabpage
+- Aktuell spielende Mannschaften auf der Tabellenseite farblich besonders hinterlegt
+- Aktualisieren-Button
+- Refactoring: 'MatchDayViewModel' aus 'MainViewModel' extrahieren
 - Den Namen der Siegermannschaft in fett.
 - Jahreszahl der aktuellen Saison ermitteln und benutzen
 - Symbole der Fußballmannschaften in der Liste
-- Andere Ligen auf anderen Tabpages
