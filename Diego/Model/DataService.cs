@@ -12,6 +12,23 @@ namespace Diego.Model
             _repository = repository;
         }
 
+        public async void GetLeagueName(Action<string, Exception> callback)
+        {
+            var result = "";
+            Exception error = null;
+
+            try
+            {
+                result = await _repository.GetLeagueName();
+            }
+            catch (Exception ex)
+            {
+                error = ex;
+            }
+
+            callback(result, error);
+        }
+
         public async void GetMatchDay(int number, Action<SoccerMatchDay, Exception> callback)
         {
             var result = new SoccerMatchDay();

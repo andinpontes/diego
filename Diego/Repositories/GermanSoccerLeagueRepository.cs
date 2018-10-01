@@ -29,6 +29,12 @@ namespace Diego.Repositories
             GC.SuppressFinalize(this);
         }
 
+        public async Task<string> GetLeagueName()
+        {
+            var dataObjects = await ReadSoccerMatchDataAsync(0);
+            return ReadLeagueName(dataObjects);
+        }
+
         public async Task<SoccerMatchDay> GetSoccerMatchDay(int number)
         {
             if (number < 0 || number > 34)
@@ -40,7 +46,6 @@ namespace Diego.Repositories
 
             return new SoccerMatchDay
             {
-                LeagueName = ReadLeagueName(dataObjects),
                 Name = ReadName(dataObjects),
                 Number = ReadNumber(dataObjects),
                 Matches = ReadMatches(dataObjects).ToArray()
@@ -114,7 +119,6 @@ namespace Diego.Repositories
             return new SoccerMatch
             {
                 Id = jsonObject.MatchID,
-                LeagueName = jsonObject.LeagueName,
                 UtcStartDate = jsonObject.MatchDateTimeUTC,
                 Team1 = NewTeamByJson(jsonObject.Team1),
                 Team2 = NewTeamByJson(jsonObject.Team2),

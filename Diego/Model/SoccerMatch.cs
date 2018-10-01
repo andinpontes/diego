@@ -5,7 +5,6 @@ namespace Diego.Model
     public class SoccerMatch
     {
         public int Id { get; set; }
-        public string LeagueName { get; set; }
         public DateTime UtcStartDate { get; set; }
 
         public SoccerTeam Team1 { get; set; }

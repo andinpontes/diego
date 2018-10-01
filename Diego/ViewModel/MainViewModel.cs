@@ -53,10 +53,25 @@ namespace Diego.ViewModel
         public MainViewModel(IDataService dataService)
         {
             _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+
+            UpdateLeagueTitle();
             UpdateMatchDayByCurrentNumber();
 
             StepBackward = new ActionCommand(OnStepBackward, OnCanStepBackward);
             StepForward = new ActionCommand(OnStepForward, OnCanStepForward);
+        }
+
+        private void UpdateLeagueTitle()
+        {
+            _dataService.GetLeagueName((leagueName, error) =>
+            {
+                if (!HandleError(error))
+                {
+                    return;
+                }
+
+                LeagueTitle = leagueName;
+            });
         }
 
         private void UpdateMatchDayByCurrentNumber()
@@ -70,7 +85,6 @@ namespace Diego.ViewModel
                     }
 
                     SoccerMatches = Convert(matchDay.Matches);
-                    LeagueTitle = matchDay.LeagueName;
                     MatchDayTitle = matchDay.Name;
                     MatchDayNumber = matchDay.Number;
                 });
