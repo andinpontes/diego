@@ -10,3 +10,4 @@
 - Den Namen der Siegermannschaft in fett.
 - Jahreszahl der aktuellen Saison ermitteln und benutzen
 - Symbole der Fußballmannschaften in der Liste
+- Caching für das Repository (um Http-Anfragen zu sparen)
