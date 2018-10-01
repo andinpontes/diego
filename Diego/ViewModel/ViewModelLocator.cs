@@ -43,6 +43,7 @@ namespace Diego.ViewModel
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<MatchDayViewModel>();
             SimpleIoc.Default.Register<TableViewModel>();
         }
 
@@ -54,6 +55,17 @@ namespace Diego.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public MatchDayViewModel MatchDay
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MatchDayViewModel>();
             }
         }
 

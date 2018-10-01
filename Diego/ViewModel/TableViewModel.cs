@@ -63,13 +63,6 @@ namespace Diego.ViewModel
             return result;
         }
 
-        public override void Cleanup()
-        {
-            // Clean up if needed
-
-            base.Cleanup();
-        }
-
         private bool HandleError(Exception error)
         {
             if (error == null)

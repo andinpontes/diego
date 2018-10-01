@@ -25,7 +25,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center" Foreground="Black"/>
         <TabControl>
-        <TabItem>
+        <TabItem DataContext="{Binding MatchDay, Source={StaticResource Locator}}">
             <TabItem.Header>
                 <TextBlock FontSize="16"
                    FontWeight="Bold"
@@ -117,7 +117,7 @@
                 </DockPanel>
             </Grid>
         </TabItem>
-            <TabItem DataContext="{Binding SoccerTable, Source={StaticResource Locator}}">
+        <TabItem DataContext="{Binding SoccerTable, Source={StaticResource Locator}}">
             <TabItem.Header>
                 <TextBlock FontSize="16"
                    FontWeight="Bold"

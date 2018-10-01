@@ -104,6 +104,7 @@
     <Compile Include="Repositories\GermanSoccerLeagueRepository.cs" />
     <Compile Include="Interfaces\ISoccerLeagueRepository.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
+    <Compile Include="ViewModel\MatchDayViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MatchState.cs" />
     <Compile Include="ViewModel\SoccerMatchViewModel.cs" />
