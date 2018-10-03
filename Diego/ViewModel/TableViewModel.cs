@@ -47,6 +47,7 @@ namespace Diego.ViewModel
                 {
                     Position = index + 1,
                     TeamName = current.Team.Name,
+                    //TeamLogo = ???
                     NumberOfMatches = current.NumberOfMatches,
                     NumberOfPoints = current.NumberOfPoints,
                     NumberOfWonMatches = current.NumberOfWonMatches,

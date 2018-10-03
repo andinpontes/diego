@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Media.Imaging;
 
 namespace Diego.ViewModel
 {
@@ -10,8 +6,7 @@ namespace Diego.ViewModel
     {
         public int Position { get; set; }
         public string TeamName { get; set; }
-        //Todo: Image...
-
+        public BitmapSource TeamLogo { get; set; }
         public int NumberOfMatches { get; set; }
         public int NumberOfPoints { get; set; }
         public int NumberOfWonMatches { get; set; }

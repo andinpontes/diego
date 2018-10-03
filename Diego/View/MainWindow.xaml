@@ -70,7 +70,8 @@
                                     <DataGridTemplateColumn Header="StartDate">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Path=StartDate}"></TextBlock>
+                                                <TextBlock Text="{Binding Path=StartDate}" 
+                                                           VerticalAlignment="Center"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -78,8 +79,16 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding Path=Team1}"
-                                           TextAlignment="Right"
-                                           Margin="10,1,1,1"></TextBlock>
+                                                           TextAlignment="Right"
+                                                           VerticalAlignment="Center"
+                                                           Margin="10,1,1,1"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="LogoTeam1" Width="25">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Path=Team1Logo}"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -87,8 +96,17 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="-"
-                                           TextAlignment="Center"
-                                           Margin="0,0"></TextBlock>
+                                                           TextAlignment="Center" 
+                                                           VerticalAlignment="Center"
+                                                           MinHeight="25"
+                                           Margin="0,0"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="LogoTeam2" Width="25">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Path=Team2Logo}"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -96,15 +114,17 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding Path=Team2}"
-                                           TextAlignment="Left"
-                                           Margin="1,1,10,1"></TextBlock>
+                                                           TextAlignment="Left"
+                                                           VerticalAlignment="Center"
+                                           Margin="1,1,10,1"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTemplateColumn Header="MatchResult">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Path=MatchResult}"></TextBlock>
+                                                <TextBlock Text="{Binding Path=MatchResult}"
+                                                           VerticalAlignment="Center"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>

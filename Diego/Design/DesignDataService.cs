@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Media.Imaging;
 using Diego.Model;
 
 namespace Diego.Design
@@ -29,14 +30,14 @@ namespace Diego.Design
                             Id = 16,
                             Name = "VfB Stuttgart",
                             ShortName = "Stuttgart",
-                            IconUrl =new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/VfB_Stuttgart_1893_Logo.svg/921px-VfB_Stuttgart_1893_Logo.svg.png")
+                            LogoUrl =new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/VfB_Stuttgart_1893_Logo.svg/921px-VfB_Stuttgart_1893_Logo.svg.png")
                         },
                         Team2 = new SoccerTeam
                         {
                             Id = 185,
                             Name = "Fortuna Düsseldorf",
                             ShortName = "Düsseldorf",
-                            IconUrl = new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Fortuna_D%C3%BCsseldorf.svg/150px-Fortuna_D%C3%BCsseldorf.svg.png")
+                            LogoUrl = new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Fortuna_D%C3%BCsseldorf.svg/150px-Fortuna_D%C3%BCsseldorf.svg.png")
                         },
                         FinalResult = new SoccerMatchResult{GoalsOfTeam1 = 0, GoalsOfTeam2 = 0},
                         HalfTimeResult = new SoccerMatchResult{GoalsOfTeam1 = 0, GoalsOfTeam2 = 0},
@@ -57,7 +58,8 @@ namespace Diego.Design
                             Id = 40,
                             Name = "FC Bayern München",
                             ShortName = "Bayern",
-                            IconUrl = new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Logo_FC_Bayern_M%C3%BCnchen_%282002%E2%80%932017%29.svg/600px-Logo_FC_Bayern_M%C3%BCnchen_%282002%E2%80%932017%29.svg.png")
+                            LogoUrl = new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Logo_FC_Bayern_M%C3%BCnchen_%282002%E2%80%932017%29.svg/600px-Logo_FC_Bayern_M%C3%BCnchen_%282002%E2%80%932017%29.svg.png"),
+                            //Logo = new BitmapImage(new Uri("pack://application:,,,/Resources/Werder-Bremen-Logo.png"))
                         },
                         FinalResult = new SoccerMatchResult{GoalsOfTeam1 = 10, GoalsOfTeam2 = 0},
                         HalfTimeResult = new SoccerMatchResult{GoalsOfTeam1 = 5, GoalsOfTeam2 = 0},
@@ -72,7 +74,8 @@ namespace Diego.Design
                             Id = 134,
                             Name = "SV Werder Bremen",
                             ShortName = "Bremen",
-                            IconUrl = new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/SV-Werder-Bremen-Logo.svg/681px-SV-Werder-Bremen-Logo.svg.png")
+                            LogoUrl = new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/SV-Werder-Bremen-Logo.svg/681px-SV-Werder-Bremen-Logo.svg.png"),
+                            //Logo = new BitmapImage(new Uri("pack://application:,,,/Resources/Werder-Bremen-Logo.png"))
                         },
                         Team2 = new SoccerTeam{ Id = 2, Name = "Hamburger SV", ShortName = "Hamburg" },
                     }

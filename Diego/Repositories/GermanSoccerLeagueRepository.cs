@@ -56,6 +56,7 @@ namespace Diego.Repositories
                 Matches = ReadMatches(dataObjects).ToArray()
             };
         }
+
         public async Task<SoccerTable> GetSoccerTable()
         {
             await ValidateSoccerTeamsAsync();
@@ -82,12 +83,17 @@ namespace Diego.Repositories
 
             var dataObjects = await ReadSoccerTeamsAsync();
 
-            //TODO: Add Image of team!
-            //var urlString = ((dynamic)dataObjects.First()).TeamIconUrl.ToString();
-            //var url = new Uri(urlString);
-            //var image = await LoadImageAsync(url);
+            _teams = dataObjects
+                .Select(NewTeamByJson)
+                .ToList();
 
-            _teams = dataObjects.Select(NewTeamByJson).ToList();
+            await ReadTeamLogosAsync();
+        }
+
+        private async Task<IEnumerable<JObject>> ReadSoccerTeamsAsync()
+        {
+            var url = GetTeamsUrl();
+            return await ReadJsonDataFromUrlAsync(url);
         }
         private SoccerTeam NewTeamByJson(dynamic jsonObject)
         {
@@ -96,14 +102,15 @@ namespace Diego.Repositories
                 Id = jsonObject.TeamId,
                 Name = jsonObject.TeamName,
                 ShortName = jsonObject.ShortName,
-                IconUrl = jsonObject.TeamIconUrl
+                LogoUrl = jsonObject.TeamIconUrl
             };
         }
-
-        private async Task<IEnumerable<JObject>> ReadSoccerTeamsAsync()
+        private async Task ReadTeamLogosAsync()
         {
-            var url = GetTeamsUrl();
-            return await ReadJsonDataFromUrlAsync(url);
+            foreach (var team in _teams)
+            {
+                team.Logo = await LoadImageAsync(team.LogoUrl);
+            }
         }
 
         private async Task<IEnumerable<JObject>> ReadSoccerMatchDataAsync(int number)
@@ -147,8 +154,6 @@ namespace Diego.Repositories
         }
         private SoccerMatch NewSoccerMatchByJson(dynamic jsonObject)
         {
-            var team1 = GetTeamByJsonTeamObject(jsonObject.Team1);
-
             return new SoccerMatch
             {
                 Id = jsonObject.MatchID,
@@ -162,11 +167,11 @@ namespace Diego.Repositories
         }
         private SoccerTeam GetTeamByJsonTeamObject(dynamic jsonTeamObject)
         {
-            return GetTeamById((int)jsonTeamObject.TeamId);
+            return GetTeamByName((string)jsonTeamObject.TeamName);
         }
-        private SoccerTeam GetTeamById(int id)
+        private SoccerTeam GetTeamByName(string teamName)
         {
-            return _teams.First(e => e.Id == id);
+            return _teams.First(e => e.Name == teamName);
         }
         private SoccerMatchResult NewMatchResultByJson(dynamic jsonArray, string name)
         {
@@ -204,13 +209,7 @@ namespace Diego.Repositories
         {
             return new SoccerTableEntry
             {
-                Team = new SoccerTeam
-                {
-                    Name = jsonObject.TeamName,
-                    Id = jsonObject.TeamInfoId,
-                    ShortName = jsonObject.ShortName,
-                    IconUrl = jsonObject.TeamIconUrl
-                },
+                Team = GetTeamByName(jsonObject.TeamName.ToString()),
                 NumberOfMatches = jsonObject.Matches,
                 NumberOfPoints = jsonObject.Points,
                 NumberOfWonMatches = jsonObject.Won,
@@ -257,6 +256,23 @@ namespace Diego.Repositories
 
             return await response.Content.ReadAsAsync<IEnumerable<JObject>>();
         }
+        private async Task<BitmapImage> LoadImageAsync(Uri url)
+        {
+            BitmapImage result = new BitmapImage();
+
+            using (HttpClient client = new HttpClient())
+            {
+                using (var response = await client.GetAsync(url))
+                {
+                    response.EnsureSuccessStatusCode();
+                    result.BeginInit();
+                    result.StreamSource = await response.Content.ReadAsStreamAsync();
+                    result.EndInit();
+                }
+            }
+
+            return result;
+        }
 
         protected virtual void Dispose(bool disposing)
         {
@@ -264,21 +280,6 @@ namespace Diego.Repositories
             {
                 _httpClient.Dispose();
             }
-        }
-
-        public async Task<BitmapImage> LoadImageAsync(Uri url)
-        {
-            BitmapImage bitmapImage = new BitmapImage();
-
-            using (var response = await _httpClient.GetAsync(url))
-            {
-                response.EnsureSuccessStatusCode();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = await response.Content.ReadAsStreamAsync();
-                bitmapImage.EndInit();
-             }
-
-             return bitmapImage;
         }
     }
 }

@@ -109,9 +109,9 @@ namespace Diego.ViewModel
             {
                 StartDate = FormatStartDate(m.UtcStartDate),
                 Team1 = m.Team1.Name,
-                //Team1Image = _dataService.GetTeamImage(m.Team1.IconUrl),
+                Team1Logo = m.Team1.Logo,
                 Team2 = m.Team2.Name,
-                //Team2Image = _dataService.GetTeamImage(m.Team2.IconUrl),
+                Team2Logo = m.Team2.Logo,
                 MatchResult = FormatMatchResult(m),
                 MatchState = DetectMatchState(m),
                 IsTeam1Winner = m.FinalResult?.GoalsOfTeam1 > m.FinalResult?.GoalsOfTeam2,

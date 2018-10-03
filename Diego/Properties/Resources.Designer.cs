@@ -59,5 +59,15 @@ namespace Diego.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Werder_Bremen_Logo {
+            get {
+                object obj = ResourceManager.GetObject("Werder_Bremen_Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
