@@ -5,9 +5,12 @@
 # Auf GitHub hosten
 # Refactoring: 'MatchDayViewModel' aus 'MainViewModel' extrahieren
 ~ Aktuelle Tabelle auf eigener Seite / Tabpage
+~ Symbole der Fußballmannschaften in der Spieltagsliste
+- Anzeige das die App noch am Laden ist (beim initialen Start)
+- Symbole der Fußballmannschaften in der Tabelle
+- Schönere Symbole (sind durch Verkleinern zu unschön)
 - Aktuell spielende Mannschaften auf der Tabellenseite farblich besonders hinterlegt
 - Aktualisieren-Button
 - Den Namen der Siegermannschaft in fett.
 - Jahreszahl der aktuellen Saison ermitteln und benutzen
-- Symbole der Fußballmannschaften in der Liste
 - Caching für das Repository (um Http-Anfragen zu sparen)
