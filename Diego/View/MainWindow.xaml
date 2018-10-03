@@ -8,7 +8,8 @@
         Height="500"
         Width="900"
         Title="{Binding MainWindowTitle}"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        MinHeight="250" MinWidth="400">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -17,119 +18,131 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <DockPanel>
-        <TextBlock FontSize="20"
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Column="1" Grid.Row="1">
+            <TextBlock FontSize="20"
                    FontWeight="Bold"
                    DockPanel.Dock="Top"
                    Text="{Binding LeagueTitle}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center" Foreground="Black"/>
-        <TabControl>
-        <TabItem DataContext="{Binding MatchDay, Source={StaticResource Locator}}">
-            <TabItem.Header>
-                <TextBlock FontSize="16"
+            <TabControl>
+                <TabItem DataContext="{Binding MatchDay, Source={StaticResource Locator}}">
+                    <TabItem.Header>
+                        <TextBlock FontSize="16"
                    FontWeight="Bold"
                    Text="Spiele"/>
-            </TabItem.Header>
-            <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
-                <DockPanel>
-                    <Grid Height="50" DockPanel.Dock="Top">
-                        <Button Width="100" 
+                    </TabItem.Header>
+                    <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
+                        <DockPanel>
+                            <Grid Height="50" DockPanel.Dock="Top">
+                                <Button Width="100" 
                         HorizontalAlignment="Left" 
                         Command="{Binding StepBackward}"
                         FontWeight="Bold">&lt;</Button>
-                        <TextBlock Text="{Binding MatchDayTitle}"
+                                <TextBlock Text="{Binding MatchDayTitle}"
                            FontWeight="Bold"
                            TextAlignment="Center"
                            VerticalAlignment="Center" FontSize="16" Margin="100,14"
                            ></TextBlock>
-                        <Button Width="100" 
+                                <Button Width="100" 
                         HorizontalAlignment="Right" 
                         Command="{Binding StepForward}">&gt;</Button>
-                    </Grid>
-                    <DataGrid x:Name="dataGrid" 
+                            </Grid>
+                            <DataGrid x:Name="dataGrid" 
                       VerticalAlignment="Stretch"
                       ItemsSource="{Binding SoccerMatches}"
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       GridLinesVisibility="None"
                       HeadersVisibility="None">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="StartDate">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=StartDate}"></TextBlock>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Team1">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=Team1}"
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="StartDate">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=StartDate}"></TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Team1">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Team1}"
                                            TextAlignment="Right"
                                            Margin="10,1,1,1"></TextBlock>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="-" Width="10" CanUserResize="False">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="-"
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="-" Width="10" CanUserResize="False">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="-"
                                            TextAlignment="Center"
                                            Margin="0,0"></TextBlock>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Team2">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=Team2}"
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Team2">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Team2}"
                                            TextAlignment="Left"
                                            Margin="1,1,10,1"></TextBlock>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="MatchResult">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=MatchResult}"></TextBlock>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="MatchResult">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=MatchResult}"></TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
 
-                        <DataGrid.RowStyle>
-                            <Style TargetType="DataGridRow">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=MatchState}" Value="Finished">
-                                        <Setter Property="Background" Value="#C8FBC8"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=MatchState}" Value="Started">
-                                        <Setter Property="Background" Value="#FFC6D1"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=MatchState}" Value="Pending">
-                                        <Setter Property="Background" Value="WhiteSmoke"></Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.RowStyle>
-                    </DataGrid>
-                </DockPanel>
-            </Grid>
-        </TabItem>
-        <TabItem DataContext="{Binding SoccerTable, Source={StaticResource Locator}}">
-            <TabItem.Header>
-                <TextBlock FontSize="16"
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="DataGridRow">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=MatchState}" Value="Finished">
+                                                <Setter Property="Background" Value="#C8FBC8"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=MatchState}" Value="Started">
+                                                <Setter Property="Background" Value="#FFC6D1"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=MatchState}" Value="Pending">
+                                                <Setter Property="Background" Value="WhiteSmoke"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.RowStyle>
+                            </DataGrid>
+                        </DockPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem DataContext="{Binding SoccerTable, Source={StaticResource Locator}}">
+                    <TabItem.Header>
+                        <TextBlock FontSize="16"
                    FontWeight="Bold"
                    Text="Tabelle"/>
-            </TabItem.Header>
-                <DockPanel>
-                    <TextBlock Text="Tabelle" DockPanel.Dock="Top"></TextBlock>
-                    <DataGrid ItemsSource="{Binding Entries}"
+                    </TabItem.Header>
+                    <DockPanel>
+                        <TextBlock Text="Tabelle" DockPanel.Dock="Top"></TextBlock>
+                        <DataGrid ItemsSource="{Binding Entries}"
                               GridLinesVisibility="None"
                               CanUserAddRows="False"></DataGrid>
-                </DockPanel>
-        </TabItem>
-    </TabControl>
-    </DockPanel>
+                    </DockPanel>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Grid>
 </Window>
