@@ -37,6 +37,7 @@ namespace Diego.ViewModel
 
         public ICommand StepBackward { get; private set; }
         public ICommand StepForward { get; private set; }
+        public ICommand Refresh { get; private set; }
 
         public MatchDayViewModel(IDataService dataService)
         {
@@ -46,6 +47,7 @@ namespace Diego.ViewModel
 
             StepBackward = new ActionCommand(OnStepBackward, OnCanStepBackward);
             StepForward = new ActionCommand(OnStepForward, OnCanStepForward);
+            Refresh = new ActionCommand(OnRefresch, OnCanRefresh);
         }
 
         private void UpdateMatchDayByCurrentNumber()
@@ -90,6 +92,15 @@ namespace Diego.ViewModel
         private bool OnCanStepForward(object arg)
         {
             return MatchDayNumber < NumberOfMatchesPerSeason;
+        }
+
+        private void OnRefresch(object obj)
+        {
+            UpdateMatchDayByCurrentNumber();
+        }
+        private bool OnCanRefresh(object arg)
+        {
+            return true;
         }
 
         private bool HandleError(Exception error)

@@ -9,8 +9,8 @@
 # Anzeige das die App noch am Laden ist (beim initialen Start)
 # Symbole der Fußballmannschaften in der Tabelle
 # Schönere Symbole (sind durch Verkleinern zu unschön)
+# Aktualisieren-Button
 - Aktuell spielende Mannschaften auf der Tabellenseite farblich besonders hinterlegt
-- Aktualisieren-Button
 - Den Namen der Siegermannschaft in fett.
 - Jahreszahl der aktuellen Saison ermitteln und benutzen
 - Caching für das Repository (um Http-Anfragen zu sparen)
