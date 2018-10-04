@@ -4,11 +4,11 @@
 # Eigene Farbe (Hintergrund weiß/ Text grau), wenn das Spiel noch nicht begonnen hat.
 # Auf GitHub hosten
 # Refactoring: 'MatchDayViewModel' aus 'MainViewModel' extrahieren
-~ Aktuelle Tabelle auf eigener Seite / Tabpage
-~ Symbole der Fußballmannschaften in der Spieltagsliste
-- Anzeige das die App noch am Laden ist (beim initialen Start)
-- Symbole der Fußballmannschaften in der Tabelle
-- Schönere Symbole (sind durch Verkleinern zu unschön)
+# Aktuelle Tabelle auf eigener Seite / Tabpage
+# Symbole der Fußballmannschaften in der Spieltagsliste
+# Anzeige das die App noch am Laden ist (beim initialen Start)
+# Symbole der Fußballmannschaften in der Tabelle
+# Schönere Symbole (sind durch Verkleinern zu unschön)
 - Aktuell spielende Mannschaften auf der Tabellenseite farblich besonders hinterlegt
 - Aktualisieren-Button
 - Den Namen der Siegermannschaft in fett.
