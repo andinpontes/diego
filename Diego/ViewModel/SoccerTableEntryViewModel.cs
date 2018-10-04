@@ -15,5 +15,20 @@ namespace Diego.ViewModel
         public int GoalsDifference { get; set; }
         public int NumberOfGoals { get; set; }
         public int NumberOfOpponentGoals { get; set; }
+
+        public string Matches
+        {
+            get
+            {
+                return $"{NumberOfWonMatches} : {NumberOfDrawMatches} : {NumberOfLostMatches}";
+            }
+        }
+        public string Goals
+        {
+            get
+            {
+                return $"{NumberOfGoals} : {NumberOfOpponentGoals}";
+            }
+        }
     }
 }

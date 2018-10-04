@@ -50,6 +50,8 @@ namespace Diego.ViewModel
 
         private void UpdateMatchDayByCurrentNumber()
         {
+            MatchDayTitle = "Loading...";
+
             _dataService.GetMatchDay(_matchDayNumber,
                 (matchDay, error) =>
                 {

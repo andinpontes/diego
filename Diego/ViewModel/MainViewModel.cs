@@ -31,6 +31,8 @@ namespace Diego.ViewModel
 
         private void UpdateLeagueTitle()
         {
+            LeagueTitle = "Loading...";
+
             _dataService.GetLeagueName((leagueName, error) =>
             {
                 if (!HandleError(error))
