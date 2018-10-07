@@ -42,12 +42,11 @@ namespace Diego.ViewModel
         public MatchDayViewModel(IDataService dataService)
         {
             _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
-
-            UpdateMatchDayByCurrentNumber();
-
             StepBackward = new ActionCommand(OnStepBackward, OnCanStepBackward);
             StepForward = new ActionCommand(OnStepForward, OnCanStepForward);
             Refresh = new ActionCommand(OnRefresch, OnCanRefresh);
+
+            UpdateMatchDayByCurrentNumber();
         }
 
         private void UpdateMatchDayByCurrentNumber()

@@ -14,3 +14,8 @@
 - Aktuell spielende Mannschaften auf der Tabellenseite farblich besonders hinterlegt
 - Jahreszahl der aktuellen Saison ermitteln und benutzen
 - Caching für das Repository (um Http-Anfragen zu sparen)
+- Automatisches Update der Spiele
+- Einstellungen-Dialog: Einstellbare Zeit für automatisches Update
+- Linien in Spielplan für unterschiedliche Tage und Zeiten
+- Linien in der Tabelle für Champions-League- und Euro-League-Plätze
+- Linien in der Tabelle für Relegations- und Abstiegsplätze

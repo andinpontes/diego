@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using Diego.Model;
 using System;
+using System.Windows.Input;
 
 namespace Diego.ViewModel
 {
@@ -22,9 +23,12 @@ namespace Diego.ViewModel
             set { Set(ref _leagueTitle, value); }
         }
 
+        public ICommand CloseApplication { get; private set; }
+
         public MainViewModel(IDataService dataService)
         {
             _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+            CloseApplication = new ApplicationCloseCommand();
 
             UpdateLeagueTitle();
         }
