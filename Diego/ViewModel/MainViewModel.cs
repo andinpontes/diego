@@ -24,11 +24,14 @@ namespace Diego.ViewModel
         }
 
         public ICommand CloseApplication { get; private set; }
+        public ICommand OpenSettingsDialog { get; private set; }
 
         public MainViewModel(IDataService dataService)
         {
             _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+
             CloseApplication = new ApplicationCloseCommand();
+            OpenSettingsDialog = new OpenSettingsDialogCommand();
 
             UpdateLeagueTitle();
         }
