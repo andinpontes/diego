@@ -11,6 +11,7 @@ namespace Diego.ViewModel
 
         private string _mainWindowTitle = "Fußball-Ergebnisse";
         private string _leagueTitle = string.Empty;
+        private int _updateTimeInSeconds = 5;
 
         public string MainWindowTitle
         {
@@ -21,6 +22,11 @@ namespace Diego.ViewModel
         {
             get { return _leagueTitle; }
             set { Set(ref _leagueTitle, value); }
+        }
+        public int UpdateTimeInSeconds
+        {
+            get { return _updateTimeInSeconds; }
+            set { Set(ref _updateTimeInSeconds, value); }
         }
 
         public ICommand CloseApplication { get; private set; }

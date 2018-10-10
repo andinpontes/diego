@@ -19,3 +19,6 @@
 - Linien in Spielplan für unterschiedliche Tage und Zeiten
 - Linien in der Tabelle für Champions-League- und Euro-League-Plätze
 - Linien in der Tabelle für Relegations- und Abstiegsplätze
+- Splash-Screen
+- Logos der wichtigsten Mannschaften aus den Programm-Resourcen holen statt Online
+- Command-Klassen in eigenen Folder

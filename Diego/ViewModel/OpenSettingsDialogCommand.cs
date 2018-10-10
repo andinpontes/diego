@@ -24,6 +24,7 @@ namespace Diego.ViewModel
             {
                 Owner = Application.Current.MainWindow
             };
+
             dialog.ShowDialog();
         }
     }
