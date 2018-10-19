@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Diego.ViewModel
 {
@@ -15,10 +16,13 @@ namespace Diego.ViewModel
         private const int NumberOfMatchesPerSeason = 34;
 
         private readonly IDataService _dataService;
+        private readonly DispatcherTimer timer = new DispatcherTimer();
 
-        private string _matchDayTitle = string.Empty;
+        private string _matchDayTitle = "Loading...";
         private int _matchDayNumber = 0;
         private List<SoccerMatchViewModel> _soccerMatches = new List<SoccerMatchViewModel>();
+        private int _updateTimeInSeconds = 10;
+        private bool _isLoading = false;
 
         public string MatchDayTitle
         {
@@ -35,6 +39,16 @@ namespace Diego.ViewModel
             get { return _matchDayNumber; }
             set { Set(ref _matchDayNumber, value); }
         }
+        public int UpdateTimeInSeconds
+        {
+            get { return _updateTimeInSeconds; }
+            set { Set(ref _updateTimeInSeconds, value); }
+        }
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { Set(ref _isLoading, value); }
+        }
 
         public ICommand StepBackward { get; private set; }
         public ICommand StepForward { get; private set; }
@@ -48,11 +62,24 @@ namespace Diego.ViewModel
             Refresh = new ActionCommand(OnRefresch, OnCanRefresh);
 
             UpdateMatchDayByCurrentNumber();
+            InitializeTimer();
+        }
+
+        private void InitializeTimer()
+        {
+            timer.Tick += TimerElapsed;
+            timer.Interval = TimeSpan.FromSeconds(_updateTimeInSeconds);
+            timer.Start();
         }
 
         private void UpdateMatchDayByCurrentNumber()
         {
-            MatchDayTitle = "Loading...";
+            if (IsLoading)
+            {
+                return;
+            }
+
+            IsLoading = true;
 
             _dataService.GetMatchDay(_matchDayNumber,
                 (matchDay, error) =>
@@ -65,7 +92,13 @@ namespace Diego.ViewModel
                     SoccerMatches = Convert(matchDay.Matches);
                     MatchDayTitle = matchDay.Name;
                     MatchDayNumber = matchDay.Number;
+                    IsLoading = false;
                 });
+        }
+
+        private void TimerElapsed(object sender, EventArgs e)
+        {
+            UpdateMatchDayByCurrentNumber();
         }
 
         private void OnStepBackward(object obj)

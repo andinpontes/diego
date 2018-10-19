@@ -30,15 +30,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="6"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
-            <MenuItem Header="Datei">
-                <MenuItem Header="Einstellungen" 
-                          Command="{Binding OpenSettingsDialog}"/>
-                <MenuItem Header="Beenden" 
-                          InputGestureText="Alt + F4" 
-                          Command="{Binding CloseApplication}"/>
-            </MenuItem>
-        </Menu>
         <DockPanel Grid.Column="1" Grid.Row="1" Margin="0,4,0,2" Grid.RowSpan="2">
             <TextBlock FontSize="20"
                        FontWeight="Bold"
@@ -75,7 +66,18 @@
                                            TextAlignment="Center"
                                            VerticalAlignment="Center" 
                                            FontSize="16" 
-                                           Margin="100,14"/>
+                                           Margin="100,14">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                                                    <Setter Property="Foreground" Value="Gray"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                                 <Button Grid.Column="2"
                                         Command="{Binding Refresh}">
                                     <Image Source="/Resources/UpdateArrows.png" RenderOptions.BitmapScalingMode="Fant"/>

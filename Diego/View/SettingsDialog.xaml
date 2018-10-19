@@ -9,8 +9,7 @@
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
-        ResizeMode="NoResize"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -35,6 +34,7 @@
                  Margin="5,5"
                  MinWidth="50"
                  Name="txtUpdateInterval"
+                 DataContext="{Binding MatchDay, Source={StaticResource Locator}}"
                  Text="{Binding UpdateTimeInSeconds}"/>
         <TextBlock Grid.Column="4" Grid.Row="1"
                    Margin="5,5"
