@@ -18,285 +18,353 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="6"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="6"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="6"/>
-        </Grid.RowDefinitions>
-        <DockPanel Grid.Column="1" Grid.Row="1" Margin="0,4,0,2" Grid.RowSpan="2">
-            <TextBlock FontSize="20"
-                       FontWeight="Bold"
-                       DockPanel.Dock="Top"
-                       Text="{Binding LeagueTitle}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center" 
-                       Foreground="Black"/>
-            <TabControl>
-                <TabItem DataContext="{Binding MatchDay, Source={StaticResource Locator}}">
-                    <TabItem.Header>
-                        <TextBlock FontSize="16"
-                   FontWeight="Bold"
-                   Text="Spiele"/>
-                    </TabItem.Header>
-                    <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
-                        <DockPanel>
-                            <Grid Height="50" DockPanel.Dock="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="50"/>
-                                    <ColumnDefinition Width="5"/>
-                                    <ColumnDefinition Width="100"/>
-                                </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0"
-                                        MinWidth="100"
-                                        HorizontalAlignment="Left" 
-                                        Command="{Binding StepBackward}"
-                                        FontWeight="Bold">&lt;</Button>
-                                <TextBlock Grid.Column="1"
-                                           Text="{Binding MatchDayTitle}"                                           
-                                           FontWeight="Bold"
-                                           TextAlignment="Center"
-                                           VerticalAlignment="Center" 
-                                           FontSize="16" 
-                                           Margin="100,14">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="Foreground" Value="Black"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsLoading}" Value="True">
-                                                    <Setter Property="Foreground" Value="Gray"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                                <Button Grid.Column="2"
-                                        Command="{Binding Refresh}">
-                                    <Image Source="/Resources/UpdateArrows.png" RenderOptions.BitmapScalingMode="Fant"/>
-                                </Button>
-                                <Button Grid.Column="4" 
-                                        MinWidth="100"
-                                        HorizontalAlignment="Right" 
-                                        Command="{Binding StepForward}">&gt;</Button>
-                            </Grid>
-                            <DataGrid x:Name="dataGrid" 
-                                      VerticalAlignment="Stretch"
-                                      ItemsSource="{Binding SoccerMatches}"
-                                      AutoGenerateColumns="False"
-                                      IsReadOnly="True"
-                                      GridLinesVisibility="None"
-                                      HeadersVisibility="None"
-                                      FontSize="14"
-                                      SelectionMode="Single"
-                                      SelectionUnit="FullRow"
-                                      Margin="0,2,0,0">
-                                <DataGrid.CellStyle>
-                                    <Style TargetType="DataGridCell">
-                                        <Setter Property="BorderThickness" Value="0"/>
-                                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                                    </Style>
-                                </DataGrid.CellStyle>
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="StartDate">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Path=StartDate}" 
-                                                           VerticalAlignment="Center"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn Binding="{Binding Team1}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="HorizontalAlignment" Value="Right" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                                <Setter Property="Margin" Value="10,1,5,1" />
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                        <DataGridTextColumn.CellStyle>
-                                            <Style TargetType="DataGridCell">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsTeam1Winner}" Value="True">
-                                                        <Setter Property="FontWeight" Value="Bold"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </DataGridTextColumn.CellStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTemplateColumn Header="LogoTeam1" Width="25">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding Path=Team1Logo}" RenderOptions.BitmapScalingMode="Fant"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="-" Width="10" CanUserResize="False">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="-"
-                                                           TextAlignment="Center" 
-                                                           VerticalAlignment="Center"
-                                                           MinHeight="25"
-                                                           Margin="0,0"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="LogoTeam2" Width="25">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding Path=Team2Logo}" RenderOptions.BitmapScalingMode="Fant"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn Binding="{Binding Team2}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="HorizontalAlignment" Value="Left" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                                <Setter Property="Margin" Value="5,1,10,1" />
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                        <DataGridTextColumn.CellStyle>
-                                            <Style TargetType="DataGridCell">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsTeam2Winner}" Value="True">
-                                                        <Setter Property="FontWeight" Value="Bold"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </DataGridTextColumn.CellStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTemplateColumn Header="MatchResult" Width="*">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Path=MatchResult}"
-                                                           VerticalAlignment="Center"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
+    <DockPanel>
+        <Grid Background="WhiteSmoke" 
+              Panel.ZIndex="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0"
+                    Margin="0,0,0,0"
+                    x:Name="btnShowExplorer" 
+                    MinWidth="30"
+                    MinHeight="30"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="HandleButtonExpMouseEnter">&#9776;</Button>
+        </Grid>
+        <Grid IsSharedSizeScope="True">
 
-                                <DataGrid.RowStyle>
-                                    <Style TargetType="DataGridRow">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=MatchState}" Value="Finished">
-                                                <Setter Property="Background" Value="#C8FBC8"></Setter>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=MatchState}" Value="Started">
-                                                <Setter Property="Background" Value="#FFC6D1"></Setter>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=MatchState}" Value="Pending">
-                                                <Setter Property="Background" Value="WhiteSmoke"></Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </DataGrid.RowStyle>
-                            </DataGrid>
-                        </DockPanel>
-                    </Grid>
-                </TabItem>
-                <TabItem DataContext="{Binding SoccerTable, Source={StaticResource Locator}}">
-                    <TabItem.Header>
-                        <TextBlock FontSize="16"
-                                   FontWeight="Bold"
-                                   Text="Tabelle"/>
-                    </TabItem.Header>
+            <Grid x:Name="backgroundLayer"
+                  MouseDown="HandleBackgroundLayerMouseDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Column="1" Grid.Row="1" Margin="0,4,0,2" Grid.RowSpan="2">
+                    <TextBlock FontSize="20"
+                               FontWeight="Bold"
+                               DockPanel.Dock="Top"
+                               Text="{Binding LeagueTitle}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center" 
+                               Foreground="Black"/>
+                    <TabControl>
+                        <TabItem DataContext="{Binding MatchDay, Source={StaticResource Locator}}">
+                            <TabItem.Header>
+                                <TextBlock FontSize="16"
+                                           FontWeight="Bold"
+                                           Text="Spiele"/>
+                            </TabItem.Header>
+                            <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
+                                <DockPanel>
+                                    <Grid Height="50" DockPanel.Dock="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="5"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0"
+                                                MinWidth="100"
+                                                HorizontalAlignment="Left" 
+                                                Command="{Binding StepBackward}"
+                                                FontWeight="Bold">&lt;</Button>
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding MatchDayTitle}"                                           
+                                                   FontWeight="Bold"
+                                                   TextAlignment="Center"
+                                                   VerticalAlignment="Center" 
+                                                   FontSize="16" 
+                                                   Margin="100,14">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                                                                <Setter Property="Foreground" Value="Gray"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <Button Grid.Column="2"
+                                                Command="{Binding Refresh}">
+                                                <Image Source="/Resources/UpdateArrows.png" RenderOptions.BitmapScalingMode="Fant"/>
+                                            </Button>
+                                            <Button Grid.Column="4" 
+                                                MinWidth="100"
+                                                HorizontalAlignment="Right" 
+                                                Command="{Binding StepForward}">&gt;</Button>
+                                        </Grid>
+                                        <DataGrid x:Name="dataGrid" 
+                                              VerticalAlignment="Stretch"
+                                              ItemsSource="{Binding SoccerMatches}"
+                                              AutoGenerateColumns="False"
+                                              IsReadOnly="True"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="None"
+                                              FontSize="14"
+                                              SelectionMode="Single"
+                                              SelectionUnit="FullRow"
+                                              Margin="0,2,0,0">
+                                            <DataGrid.CellStyle>
+                                                <Style TargetType="DataGridCell">
+                                                    <Setter Property="BorderThickness" Value="0"/>
+                                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                                </Style>
+                                            </DataGrid.CellStyle>
+                                            <DataGrid.Columns>
+                                                <DataGridTemplateColumn Header="StartDate">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Path=StartDate}" 
+                                                                   VerticalAlignment="Center"/>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <DataGridTextColumn Binding="{Binding Team1}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                                            <Setter Property="Margin" Value="10,1,5,1" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style TargetType="DataGridCell">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsTeam1Winner}" Value="True">
+                                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTemplateColumn Header="LogoTeam1" Width="25">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Image Source="{Binding Path=Team1Logo}" RenderOptions.BitmapScalingMode="Fant"/>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <DataGridTemplateColumn Header="-" Width="10" CanUserResize="False">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="-"
+                                                                   TextAlignment="Center" 
+                                                                   VerticalAlignment="Center"
+                                                                   MinHeight="25"
+                                                                   Margin="0,0"/>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <DataGridTemplateColumn Header="LogoTeam2" Width="25">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Image Source="{Binding Path=Team2Logo}" RenderOptions.BitmapScalingMode="Fant"/>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <DataGridTextColumn Binding="{Binding Team2}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="HorizontalAlignment" Value="Left" />
+                                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                                            <Setter Property="Margin" Value="5,1,10,1" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style TargetType="DataGridCell">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsTeam2Winner}" Value="True">
+                                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTemplateColumn Header="MatchResult" Width="*">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Path=MatchResult}"
+                                                                   VerticalAlignment="Center"/>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+
+                                            <DataGrid.RowStyle>
+                                                <Style TargetType="DataGridRow">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=MatchState}" Value="Finished">
+                                                            <Setter Property="Background" Value="#C8FBC8"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=MatchState}" Value="Started">
+                                                            <Setter Property="Background" Value="#FFC6D1"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=MatchState}" Value="Pending">
+                                                            <Setter Property="Background" Value="WhiteSmoke"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGrid.RowStyle>
+                                        </DataGrid>
+                                    </DockPanel>
+                                </Grid>
+                            </TabItem>
+                            <TabItem DataContext="{Binding SoccerTable, Source={StaticResource Locator}}">
+                                <TabItem.Header>
+                                    <TextBlock FontSize="16"
+                                           FontWeight="Bold"
+                                           Text="Tabelle"/>
+                                </TabItem.Header>
+                                <DockPanel>
+                                    <DataGrid ItemsSource="{Binding Entries}"
+                                          GridLinesVisibility="None"
+                                          CanUserAddRows="False"
+                                          AutoGenerateColumns="False"
+                                          HeadersVisibility="Column">
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn Header="Pos.">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=Position}"
+                                                               VerticalAlignment="Center"
+                                                               TextAlignment="Right"
+                                                               MinHeight="25"
+                                                               Margin="1,1,10,1"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Width="25">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Path=TeamLogo}"  RenderOptions.BitmapScalingMode="Fant"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Team">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=TeamName}"
+                                                               VerticalAlignment="Center"
+                                                               TextAlignment="Left"
+                                                               Margin="10,1,1,1"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Sp">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=NumberOfMatches}"
+                                                               VerticalAlignment="Center"
+                                                               TextAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="S : U : N">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=Matches}"
+                                                               VerticalAlignment="Center"
+                                                               TextAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Tore">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=Goals}"
+                                                               VerticalAlignment="Center"
+                                                               TextAlignment="Center"
+                                                               FontWeight="UltraLight"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="+/-">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=GoalsDifference}"
+                                                               VerticalAlignment="Center"
+                                                               TextAlignment="Center"
+                                                               FontWeight="UltraLight"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Pt" Width="*">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=NumberOfPoints}"
+                                                               VerticalAlignment="Center"
+                                                               TextAlignment="Left"
+                                                               FontWeight="Bold"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </DockPanel>
+                            </TabItem>
+                        </TabControl>
+                </DockPanel>
+            </Grid>
+
+            <Grid x:Name="sidebarLayer" Visibility="Collapsed">
+
+                <Grid.RenderTransform>
+                    <TranslateTransform x:Name="sidebarLayerTransform"/>
+                </Grid.RenderTransform>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="pinSpalte" Width="280"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        Margin="0" 
+                        CornerRadius="0" 
+                        BorderThickness="1"
+                        BorderBrush="Gray">
+                    <Border.Background>
+                        <SolidColorBrush Color="Blue"/>
+                    </Border.Background>
                     <DockPanel>
-                        <DataGrid ItemsSource="{Binding Entries}"
-                                  GridLinesVisibility="None"
-                                  CanUserAddRows="False"
-                                  AutoGenerateColumns="False"
-                                  HeadersVisibility="Column">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="Pos.">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=Position}"
-                                                       VerticalAlignment="Center"
-                                                       TextAlignment="Right"
-                                                       MinHeight="25"
-                                                       Margin="1,1,10,1"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Width="25">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding Path=TeamLogo}"  RenderOptions.BitmapScalingMode="Fant"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Team">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=TeamName}"
-                                                       VerticalAlignment="Center"
-                                                       TextAlignment="Left"
-                                                       Margin="10,1,1,1"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Sp">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=NumberOfMatches}"
-                                                       VerticalAlignment="Center"
-                                                       TextAlignment="Center"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="S : U : N">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=Matches}"
-                                                       VerticalAlignment="Center"
-                                                       TextAlignment="Center"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Tore">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=Goals}"
-                                                       VerticalAlignment="Center"
-                                                       TextAlignment="Center"
-                                                       FontWeight="UltraLight"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="+/-">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=GoalsDifference}"
-                                                       VerticalAlignment="Center"
-                                                       TextAlignment="Center"
-                                                       FontWeight="UltraLight"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Pt" Width="*">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=NumberOfPoints}"
-                                                       VerticalAlignment="Center"
-                                                       TextAlignment="Left"
-                                                       FontWeight="Bold"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <Grid DockPanel.Dock="Top">
+                            <TextBlock HorizontalAlignment="Left" 
+                                       Text="Einstellungen" 
+                                       Margin="10" 
+                                       FontSize="12" 
+                                       FontWeight="Bold" 
+                                       Foreground="LightGray"/>
+
+                            <ToggleButton x:Name="btnPinIt"
+                                          Margin="0,0,5,0"
+                                          HorizontalAlignment="Right" 
+                                          Width="25" 
+                                          Height="25" 
+                                          Checked="HandlePinning"
+                                          Unchecked="HandleUnpinning" 
+                                          IsChecked="False">
+                                <!--<Image x:Name="pinImage" Source="Images\unpinned.bmp"/>-->
+                            </ToggleButton>
+
+                        </Grid>
+                        <ListView Margin="0" Background="LightGray">
+                        </ListView>
                     </DockPanel>
-                </TabItem>
-            </TabControl>
-        </DockPanel>
-    </Grid>
+                </Border>
+                <GridSplitter Grid.Column="1"
+                              HorizontalAlignment="Left" 
+                              Width="5"
+                              Background="Transparent"/>
+            </Grid>
+
+        </Grid>
+    </DockPanel>
 </Window>
