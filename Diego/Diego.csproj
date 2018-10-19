@@ -107,12 +107,12 @@
     <Compile Include="Model\SoccerTeam.cs" />
     <Compile Include="Repositories\GermanSoccerLeagueRepository.cs" />
     <Compile Include="Interfaces\ISoccerLeagueRepository.cs" />
-    <Compile Include="ViewModel\ActionCommand.cs" />
-    <Compile Include="ViewModel\ApplicationCloseCommand.cs" />
+    <Compile Include="Commands\ActionCommand.cs" />
+    <Compile Include="Commands\ApplicationCloseCommand.cs" />
     <Compile Include="ViewModel\MatchDayViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MatchState.cs" />
-    <Compile Include="ViewModel\OpenSettingsDialogCommand.cs" />
+    <Compile Include="Commands\OpenSettingsDialogCommand.cs" />
     <Compile Include="ViewModel\SoccerMatchViewModel.cs" />
     <Compile Include="ViewModel\SoccerTableEntryViewModel.cs" />
     <Compile Include="ViewModel\TableViewModel.cs" />

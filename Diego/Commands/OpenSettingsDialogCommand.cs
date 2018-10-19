@@ -3,7 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Diego.ViewModel
+namespace Diego.Commands
 {
     public class OpenSettingsDialogCommand : ICommand
     {

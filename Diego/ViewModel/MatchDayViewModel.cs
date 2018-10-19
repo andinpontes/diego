@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using Diego.Commands;
 using Diego.Model;
 using System;
 using System.Collections.Generic;

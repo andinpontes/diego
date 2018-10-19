@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Diego.ViewModel
+namespace Diego.Commands
 {
     public class ActionCommand : ICommand
     {

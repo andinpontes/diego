@@ -2,6 +2,7 @@
 using Diego.Model;
 using System;
 using System.Windows.Input;
+using Diego.Commands;
 
 namespace Diego.ViewModel
 {
